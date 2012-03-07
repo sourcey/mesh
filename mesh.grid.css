@@ -1,0 +1,95 @@
+/*
+    mesh.grid.css
+    Grid layout using CSS tables
+
+    Copyright (c)2010 Sourcey
+    http://sourcey.com
+    Distributed under The MIT License.
+*/
+
+
+/* GRID
+----------------------------------------------------------------------------- */
+
+.grid {
+    position: relative;
+    width: 100%;
+    display: table;
+}
+
+.grid .row {
+    display: table-row;
+    vertical-align: top;
+    width: 100%;
+    height: 0%;
+}
+
+.grid .cell {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.grid .column {
+    display: table-cell;
+    vertical-align: top;
+    height: 100%;
+    /*
+    overflow: hidden;
+    */
+}
+
+.grid .spacer {
+    min-width: 12px;
+    min-height: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+.grid .sidebar {
+    min-width: 250px;
+    max-width: 375px; /* No love here */
+    width: 25%;
+}
+.grid .page {
+    position: relative;
+    width: 100%;
+}
+
+.xfill {
+    width: 100% !important;
+}
+
+.yfill {
+    height: 100% !important;
+}
+
+
+/* COLUMNS
+----------------------------------------------------------------------------- */
+
+/* All */
+.col2-set, .col3-set, .col4-set, .col5-set { clear:both; }
+
+/* Col2 */
+.col2-set .col-1, .col2-set .col-2 { width:48.5%; }
+.col2-set .col-1 { float:left; }
+.col2-set .col-2 { float:right; }
+
+/* Col2-alt */
+.col2-alt-set .col-1 { width:32%; }
+.col2-alt-set .col-2 { width:65%; }
+.col2-alt-set .col-1 { float:left; }
+.col2-alt-set .col-2 { float:right; }
+
+/* Col3 */
+.col3-set .col-1, .col3-set .col-2, .col3-set .col-3 { float:left; width:31.3%; }
+.col3-set .col-1, .col3-set .col-2 { margin-right:3%; }
+
+/* Col4 */
+.col4-set .col-1, .col4-set .col-2, .col4-set .col-3, .col4-set .col-4 { float:left; width:22%; }
+.col4-set .col-1, .col4-set .col-2, .col4-set .col-3 { margin-right:4%; }
+
+/* Table Columns */
+table .col-1, table .col-2, table .col-3, table .col-4 { float:none !important; margin:0 !important; }
+.col3-set td.spacer { width:3%; }
+.col4-set td.spacer { width:4%; }
