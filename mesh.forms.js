@@ -8,61 +8,14 @@
 */
 
 Mesh.extend('util', {
-
-    listen: function (node,type,fn,capture) {
-        if(Mesh.util.isHostMethod(window,"addEventListener")) {
-            /* FF & Other Browsers */
-            node.addEventListener( type, fn, capture );
-        } else if(Mesh.util.isHostMethod(window,"attachEvent") && typeof window.event !== "undefined") {
-            /* Internet Explorer */
-            if(type === "blur") {
-                type = "focusout";
-            } else if(type === "focus") {
-                type = "focusin";
-            }
-            node.attachEvent( "on" + type, fn );
-        }
-    },
-
-    isHostMethod: function(o, m) {
-        var t = typeof o[m], reFeaturedMethod = new RegExp('^function|object$', 'i');
-        return !!((reFeaturedMethod.test(t) && o[m]) || t == 'unknown');
-    },
-
-    unlisten: function (node,type,fn,capture) {
-        if (Mesh.util.isHostMethod(window,"removeEventListener")) {
-            /* FF & Other Browsers */
-            node.removeEventListener( type, fn, capture );
-        } else if(Mesh.util.isHostMethod(window,"detachEvent") && typeof window.event !== "undefined") {
-            /* Internet Explorer */
-            node.detachEvent( "on" + type, fn );
-        }
-    },
-
-    preventActions: function (evt) {
-        evt = evt || window.event;
-
-        if(evt.stopPropagation && evt.preventDefault) {
-            evt.stopPropagation();
-            evt.preventDefault();
-        } else {
-            evt.cancelBubble = true;
-            evt.returnValue = false;
-        }
-    },
-
-    getTarget: function (evt) {
-        evt = evt || window.event;
-        return evt.target || evt.srcElement;
-    },
-
+    
     hasClass: function(e,c) {
         var ret = false;
         if (!e.className) return false;
         else {
-            var class_array = e.className.split(" ");
-            for (x in class_array) {
-                if (class_array[x] == c) {
+            var classes = e.className.split(" ");
+            for (x in classes) {
+                if (classes[x] == c) {
                     ret = true;
                     break;
                 }
@@ -106,8 +59,8 @@ Mesh.extend('util', {
 
 Mesh.support.formValidation = (function() {
     var field = document.createElement('input');
-    return 'validity' in field && 'checkValidity' in field;
-//return (Mesh.util.isHostMethod(field,"validity") && Mesh.util.isHostMethod(field,"checkValidity"));
+    //return 'validity' in field && 'checkValidity' in field;
+    return (Mesh.util.isHostMethod(field,"validity") && Mesh.util.isHostMethod(field,"checkValidity")); // false; //
 })();
 
 Mesh.support.placeholder = (function(){
@@ -125,14 +78,15 @@ Mesh.loaders.validation = function() {
     $('form.validate').each(function() {
         forms.push(this);
     })
-    console.log('Mesh Loading: Validation: ', forms.length)
+    //Mesh.log('Mesh Loading: Validation: ', forms.length)
     if (forms)
         Mesh.forms.validation.setup(forms);
 };
 
+
 // Mesh.loaders.autofocus
 Mesh.loaders.autofocus = function() {
-    console.log('Mesh Loading: Autofocus: ', Mesh.support.autofocus)
+    //Mesh.log('Mesh Loading: Autofocus: ', Mesh.support.autofocus)
     if (Mesh.support.autofocus || !$(':input[autofocus]').length) {
         return;
     }
@@ -146,16 +100,16 @@ Mesh.forms = Mesh.forms || {}
 Mesh.forms.validation = (function(d){
 
     var emailPatt = /^[a-zA-Z0-9.!#$%&'*+-\/=?\^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-    urlPatt = /[a-z][\-\.+a-z]*:\/\//i,
-    nodes = /^(input|select|textarea)$/i,
-    inputTypes = /^(email|url)$/i,
-    validityEventTypes = /^(input|keyup)$/i,
-    checkEvents = /^(input|keyup|focusin|focus)$/i,
-    ignoredCheckTypes = /^(submit|image|button|reset)$/i,
-    isSubmit, usrPatt, curEvt, args, custMsg = "",
+        urlPatt = /[a-z][\-\.+a-z]*:\/\//i,
+        nodes = /^(input|select|textarea)$/i,
+        inputTypes = /^(email|url)$/i,
+        validityEventTypes = /^(input|keyup)$/i,
+        checkEvents = /^(input|keyup|focusin|focus)$/i,
+        ignoredCheckTypes = /^(submit|image|button|reset)$/i,
+        isSubmit, usrPatt, curEvt, args, custMsg = "",
 
     // Methods
-    setup, validation, validity, checkField, checkValidity, setCustomValidity, pattern, placeholder, range, required, valueMissing; //support, , Mesh.util.listen, Mesh.util.unlisten, Mesh.util.preventActions, Mesh.util.getTarget, Mesh.util.addClass, Mesh.util.removeClass, Mesh.util.hasClass, Mesh.util.isHostMethod;
+    setup, validation, validity, checkField, checkValidity, setCustomValidity, pattern, placeholder, range, required, valueMissing; //support, , Mesh.bind, Mesh.unbind, Mesh.util.preventActions, Mesh.util.getTarget, Mesh.util.addClass, Mesh.util.removeClass, Mesh.util.hasClass, Mesh.util.isHostMethod;
 
     //
     // Public Methods
@@ -163,7 +117,7 @@ Mesh.forms.validation = (function(d){
     setup = function(form, settings) {
         var isCollection = !form.nodeType || false;
 
-        var opts = {
+        var defaults = {
             validClass : "valid",
             invalidClass : "error",
             requiredClass : "required",
@@ -171,18 +125,18 @@ Mesh.forms.validation = (function(d){
             caseInsensitiveClass : "insensitive"
         };
 
-        if(typeof settings == "object") {
-            for (var i in opts) {
-                if(typeof settings[i] == "undefined") {
-                    settings[i] = opts[i];
+        if (typeof settings == "object") {
+            for (var i in defaults) {
+                if (typeof settings[i] == "undefined") {
+                    settings[i] = defaults[i];
                 }
             }
         }
 
-        args = settings || opts;
+        args = settings || defaults;
 
-        if(isCollection) {
-            for(var k=0,len=form.length;k<len;k++) {
+        if (isCollection) {
+            for (var k=0,len=form.length;k<len;k++) {
                 validation(form[k]);
             }
         } else {
@@ -199,29 +153,36 @@ Mesh.forms.validation = (function(d){
         isRequired,
         noValidate = !!(form.attributes["novalidate"]);
 
-        console.log('Mesh.forms.validation: ', form);
+        //Mesh.log('Mesh.forms.validation: ', form);
 
-        Mesh.util.listen(form,"invalid",checkField,true);
-        Mesh.util.listen(form,"blur",checkField,true);
-        Mesh.util.listen(form,"input",checkField,true);
-        Mesh.util.listen(form,"keyup",checkField,true);
-        Mesh.util.listen(form,"focus",checkField,true);
+        Mesh.bind(form,"invalid",checkField,true);
+        Mesh.bind(form,"blur",checkField,true);
+        Mesh.bind(form,"input",checkField,true);
+        Mesh.bind(form,"keyup",checkField,true);
+        Mesh.bind(form,"focus",checkField,true);
 
-        Mesh.util.listen(form,"submit",function(e){
+        // Some browsers do not prevent for submission even if checkValidity
+        // returns false. This is unwanted bahaviour.
+        Mesh.bind(form,"submit",function(e) {
             isSubmit = true;
-            if(!noValidate && !form.checkValidity()) {
+            if (!noValidate && !form.checkValidity()) {
                 Mesh.util.preventActions(e);
             }
-        },false);
+        }, false);
 
-        if(!Mesh.support.formValidation) {
+        // Apply custom validation if it is not supported natively by the browser.
+        if (!Mesh.support.formValidation) {
+
+            //Mesh.log('Mesh.forms.validation: Native validation not supported.');
+
             form.checkValidity = function() {
                 return checkValidity(form);
             };
 
-            while(flen--) {
+            while (flen--) {
                 isRequired = !!(f[flen].attributes["required"]);
-                // Firefox includes fieldsets inside elements nodelist so we filter it out.
+                // Firefox includes fieldsets inside elements nodelist so we
+                // filter it out.
                 if(f[flen].nodeName !== "FIELDSET") {
                     validity(f[flen]); // Add validity object to field
                 }
@@ -241,26 +202,31 @@ Mesh.forms.validation = (function(d){
      */
     validity = function(el) {
         var elem = el,
-        missing = valueMissing(elem),
-        attrs = {
-            type: elem.getAttribute("type"),
-            pattern: elem.getAttribute("pattern"),
-            placeholder: elem.getAttribute("placeholder")
-        },
-        fTests = new Array(((inputTypes.test(attrs.type)) ? attrs.type : ""), ((attrs.pattern) ? attrs.pattern : "")),
-        patt = pattern(elem,fTests),
-        step = range(elem,"step"),
-        min = range(elem,"min"),
-        max = range(elem,"max"),
-        customError = (custMsg !== "");
+            missing = valueMissing(elem),
+            attrs = {
+                type: elem.getAttribute("type"),
+                pattern: elem.getAttribute("pattern"),
+                placeholder: elem.getAttribute("placeholder")
+            },
+            //fTests = new Array(((inputTypes.test(attrs.type)) ? attrs.type : ""), ((attrs.pattern) ? attrs.pattern : "")),
+            fTests = [(inputTypes.test(attrs.type)) ? attrs.type : "", (attrs.pattern) ? attrs.pattern : ""],
+            patt = pattern(elem,fTests),
+            step = range(elem,"step"),
+            min = range(elem,"min"),
+            max = range(elem,"max"),
+            customError = (custMsg !== "");
 
-        elem.checkValidity = function() {
-            return checkValidity.call(this,elem);
-        };
-        elem.setCustomValidity = function(msg) {
-            setCustomValidity.call(elem,msg);
-        };
-        elem.validationMessage = custMsg;
+        // setCustomValidity, checkValidity and validationMessage may be overridden
+        // by the outside application, so we only set them if currently undefined.
+        //if (typeof elem.checkValidity == "undefined") {
+            elem.checkValidity = function() { return checkValidity.call(this,elem); };
+        //}
+        if (typeof elem.setCustomValidity == "undefined") {
+            elem.setCustomValidity = function(msg) { setCustomValidity.call(elem,msg); };
+        }
+        //if (typeof elem.validationMessage == "undefined") {
+            elem.validationMessage = custMsg;
+        //}
 
         elem.validity = {
             valueMissing: missing,
@@ -272,9 +238,11 @@ Mesh.forms.validation = (function(d){
             valid: (!missing && !patt && !step && !min && !max && !customError)
         };
 
-        //console.log('Mesh.forms.validation: Validity: ', elem.name, elem.validity.valid)
+        ////Mesh.log('Mesh.forms.validation: Check validity: ', elem.validity, elem.validationMessage)
+        ////Mesh.log('Mesh.forms.validation: Check validationMessage: ', validationMessage)
+        //Mesh.log('Mesh.forms.validation: Validity: ', elem.name, elem.validity)
 
-        if(attrs.placeholder && !validityEventTypes.test(curEvt)) {
+        if (attrs.placeholder && !validityEventTypes.test(curEvt)) {
             placeholder(elem);
         }
     };
@@ -283,36 +251,36 @@ Mesh.forms.validation = (function(d){
         var el = Mesh.util.getTarget(e) || e, // checkValidity method passes element not event
         checkForm = true;
 
-        if(nodes.test(el.nodeName) && !(ignoredCheckTypes.test(el.type) || ignoredCheckTypes.test(el.nodeName))) {
+        //Mesh.log('Mesh.forms.validation: Test check field: ', el.nodeName, el.type)
+
+        if (nodes.test(el.nodeName) && !(ignoredCheckTypes.test(el.type) || ignoredCheckTypes.test(el.nodeName))) {
             curEvt = e.type;
-            if(!Mesh.support.formValidation) {
+            if (!Mesh.support.formValidation) {
                 validity(el);
             }
-            //validity(el);
 
-            //console.log('Mesh.forms.validation: Check Field: ', el.name, el.validity.valid)
+            //Mesh.log('Mesh.forms.validation: Check Field: ', el.name, curEvt, el.validity.valid)
 
-            /**
-             * @modified by dcarbone
-             * Changed from !== to != so that IE plays nice.
-	     */
-            if(el.validity.valid == true || el.value == el.getAttribute("placeholder")) {
+            if (el.validity.valid == true || el.value == el.getAttribute("placeholder")) {
                 Mesh.util.removeClass(el,[args.invalidClass,args.requiredClass]);
                 Mesh.util.addClass(el,args.validClass);
-            } else if(checkEvents.test(curEvt)) {
-                if(el.validity.valueMissing) {
+            } 
+            else if (checkEvents.test(curEvt)) {
+                if (el.validity.valueMissing) {
                     Mesh.util.removeClass(el,[args.invalidClass,args.validClass]);
                     Mesh.util.addClass(el,args.requiredClass);
-                } else if(!el.validity.valid) {
+                }
+                else if (!el.validity.valid) {
                     Mesh.util.removeClass(el,[args.validClass,args.requiredClass]);
                     Mesh.util.addClass(el,args.invalidClass);
                 }
-            } else if(el.validity.valueMissing) {
+            }
+            else if (el.validity.valueMissing) {
                 Mesh.util.removeClass(el,[args.requiredClass,args.invalidClass,args.validClass]);
             }
-            if(curEvt === "input" && checkForm) {
+            if (curEvt === "input" && checkForm) {
                 // If input is triggered remove the keyup event
-                Mesh.util.unlisten(el.form,"keyup",checkField,true);
+                //Mesh.unbind(el.form,"keyup",checkField,true);
                 checkForm = false;
             }
         }
@@ -321,8 +289,10 @@ Mesh.forms.validation = (function(d){
     checkValidity = function (el) {
         var f, ff, isRequired, hasPattern, invalid = false;
 
-        if(el.nodeName === "FORM") {
+        if (el.nodeName === "FORM") {
             f = el.elements;
+
+            //Mesh.log('Mesh.forms.validation: Checking custom form validity', el);
 
             for(var i = 0,len = f.length;i < len;i++) {
                 ff = f[i];
@@ -330,10 +300,10 @@ Mesh.forms.validation = (function(d){
                 isRequired = !!(ff.attributes["required"]);
                 hasPattern = !!(ff.attributes["pattern"]);
 
-                if(ff.nodeName !== "FIELDSET" && (isRequired || hasPattern && isRequired)) {
+                if (ff.nodeName !== "FIELDSET" && (isRequired || hasPattern && isRequired)) {
                     checkField(ff);
-                    if(!ff.validity.valid && !invalid) {
-                        if(isSubmit) { // If it's not a submit event the field shouldn't be focused
+                    if (!ff.validity.valid && !invalid) {
+                        if (isSubmit) { // If it's not a submit event the field shouldn't be focused
                             ff.focus();
                         }
                         invalid = true;
@@ -342,11 +312,14 @@ Mesh.forms.validation = (function(d){
             }
             return !invalid;
         } else {
+            //Mesh.log('Mesh.forms.validation: Checking custom field validity', el);
+
             checkField(el);
             return el.validity.valid;
         }
     };
-    setCustomValidity = function (msg) {
+
+    setCustomValidity = function(msg) {
         var el = this;
         custMsg = msg;
 
@@ -382,11 +355,7 @@ Mesh.forms.validation = (function(d){
 
         if ((ret == false || ret == null) && tests[1] != "") {
             usrPatt = new RegExp('^(?:' + tests[1] + ')$', i);
-            /**
-             * @modified by dcarbone
-             * changed === to == to help IE out.
-             */
-            if(el.value == placeholder) {
+            if (el.value == placeholder) {
                 ret = true;
             } else if(el.value == "") {
                 ret = false;
@@ -396,6 +365,7 @@ Mesh.forms.validation = (function(d){
         }
         return ret;
     };
+
     placeholder = function(el) {
         var attrs = {
             placeholder: el.getAttribute("placeholder")
@@ -405,20 +375,23 @@ Mesh.forms.validation = (function(d){
         ignoredType = /^password$/i,
         isNative = !!Mesh.support.placeholder;
 
-        if(!isNative && node.test(el.nodeName) && !ignoredType.test(el.type)) {
-            if(el.value === "" && !focus.test(curEvt)) {
+        if (!isNative && node.test(el.nodeName) && !ignoredType.test(el.type)) {
+            if (el.value === "" && !focus.test(curEvt)) {
                 el.value = attrs.placeholder;
-                Mesh.util.listen(el.form,'submit', function () {
+                Mesh.bind(el.form,'submit', function () {
                     curEvt = 'submit';
                     placeholder(el);
                 }, true);
                 Mesh.util.addClass(el,args.placeholderClass);
+                // //Mesh.log('Mesh.forms.validation: Show placeholder');
             } else if(el.value === attrs.placeholder && focus.test(curEvt)) {
                 el.value = "";
                 Mesh.util.removeClass(el,args.placeholderClass);
+                // //Mesh.log('Mesh.forms.validation: Hide placeholder');
             }
         }
     };
+
     range = function(el,type) {
         // Emulate min, max and step
         var min = parseInt(el.getAttribute("min"),10) || 0,
@@ -427,10 +400,10 @@ Mesh.forms.validation = (function(d){
         val = parseInt(el.value,10),
         mismatch = (val-min)%step;
 
-        //console.log('Mesh.forms.validation: Range: ', min, max, val, type)
+        ////Mesh.log('Mesh.forms.validation: Range: ', min, max, val, type)
 
-        if(!valueMissing(el) && !isNaN(val)) {
-            //console.log('Mesh.forms.validation: Range: Value: ', type)
+        if (!valueMissing(el) && !isNaN(val)) {
+            ////Mesh.log('Mesh.forms.validation: Range: Value: ', type)
 
             switch(type) {
                 case "step" :
@@ -449,10 +422,12 @@ Mesh.forms.validation = (function(d){
             return false;
         }
     };
+
     required = function(el) {
         var required = !!(el.attributes["required"]);
         return (required) ? valueMissing(el) : false;
     };
+
     valueMissing = function(el) {
         var placeholder = el.getAttribute("placeholder"),
         isRequired = !!(el.attributes["required"]);
@@ -460,7 +435,8 @@ Mesh.forms.validation = (function(d){
     };
 
     return {
-        setup: setup
+        setup: setup,
+        checkField: checkField
     }
 
 })(document);

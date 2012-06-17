@@ -51,7 +51,7 @@ input[type="button"] {
   -ms-background-clip: padding-box;
   -o-background-clip: padding-box;
   background-clip: padding-box;
-  background: #dddddd url('/assetpipe/mesh/button.png?1298351022') repeat-x;
+  background: #dddddd url('/assetpipe/mesh/assets/button.png?1298351022') repeat-x;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
   background-image: -webkit-linear-gradient(#ffffff, #dddddd);
   background-image: -moz-linear-gradient(#ffffff, #dddddd);
@@ -207,8 +207,8 @@ textarea:-moz-placeholder {
     color: #888888;
 }
 
-input.placeholder_text,
-textarea.placeholder_text {
+input.placeholder,
+textarea.placeholder {
     color: #888888;
 }
 
@@ -235,7 +235,7 @@ select[size="1"] {
     select,
     select[size="0"],
     select[size="1"] {
-        background-image: url('/assetpipe/mesh/select_arrow.gif?1298351050');
+        background-image: url('/assetpipe/mesh/assets/select_arrow.gif');
         background-repeat: no-repeat;
         background-position: right center;
         padding-right: 20px;
@@ -396,6 +396,8 @@ form small {
     margin: 0 0 5px;
 }
 
+form .inline input,
+form .inline select,
 form input.inline {
     display: inline;
     width: auto;
@@ -430,9 +432,9 @@ textarea.error {
 /* STACKED FORMS
 ----------------------------------------------------------------------------- */
 
-form.stacked h3 {
+form.stacked fieldset h3,
+form.stacked fieldset legend {
     text-align: left;
-    color: #000;
     color: #333;
     font-size: 12px;
     font-weight: bold;
@@ -490,13 +492,12 @@ form.stacked  small {
     font-size: 11px;
 }
 
-
 form.stacked .loading {
     float: right;
     margin: 3px 65px 0 0;
     width: 16px;
     height: 16px;
-    background-image: url(/assetpipe/mesh/indicator.gif);
+    background-image: url(/assetpipe/mesh/assets/indicator.gif);
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
@@ -508,7 +509,7 @@ form.stacked .loading {
 form.validate fieldset input,
 form.validate fieldset textarea,
 form.validate fieldset select {
-    background-image: url(/assetpipe/mesh/validation-icons.png);
+    background-image: url(/assetpipe/mesh/assets/validation-icons.png);
     background-repeat: no-repeat;
     background-position: 98% 24px;
     -moz-transition: background-color 1s ease;
@@ -524,7 +525,7 @@ form.validate input:-moz-placeholder {
 }
 
 form.validate .validation {
-    background: red;
+    background: #c00;
     color: #fff;
     display: none;
     font-size: 12px;

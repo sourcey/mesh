@@ -50,10 +50,13 @@
     max-width: 375px; /* No love here */
     width: 25%;
 }
+
+/*
 .grid .page {
     position: relative;
     width: 100%;
 }
+*/
 
 .xfill {
     width: 100% !important;
