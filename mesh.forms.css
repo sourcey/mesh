@@ -393,6 +393,9 @@ form small {
     display: block;
     font: 11px/1.3em Arial;
     color: #808080;
+    /*
+    color: #888;
+    */
     margin: 0 0 5px;
 }
 
@@ -432,17 +435,38 @@ textarea.error {
 /* STACKED FORMS
 ----------------------------------------------------------------------------- */
 
+form.stacked fieldset {
+    text-align: center;
+}
+
 form.stacked fieldset h3,
 form.stacked fieldset legend {
     text-align: left;
     color: #333;
     font-size: 12px;
     font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+    /*
+    padding-top: 10px;
+    padding-left: 10px;
+    */
     text-transform: uppercase;
 }
 
-form.stacked fieldset {
-    text-align: center;
+/* Clearfloat for form fields */
+form.stacked .block:after {
+    content: ".";
+    display: block;
+    line-height: 0px;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+form.stacked .block { display: inline-block; }
+* html form.stacked .block,
+*:first-child+html form.stacked .block {
+    zoom: 1;
+    display: block;
 }
 
 form.stacked .field {
@@ -450,7 +474,7 @@ form.stacked .field {
     position: relative;
     text-align: left;
     margin: 0 auto 15px;
-    padding: 0 0 0px;
+    padding: 0 0 10px;
     border-bottom: 1px solid #DEE2E8;
 }
 
@@ -484,12 +508,10 @@ form.stacked .block .input {
     position: relative;
 }
 
-form.stacked  .description,
-form.stacked  .hint,
-form.stacked  small {
+form.stacked .description,
+form.stacked .hint,
+form.stacked small {
     margin: 5px 0 0;
-    font-style: italic;
-    font-size: 11px;
 }
 
 form.stacked .loading {
