@@ -33,30 +33,7 @@
     display: table-cell;
     vertical-align: top;
     height: 100%;
-    /*
-    overflow: hidden;
-    */
 }
-
-.grid .spacer {
-    min-width: 12px;
-    min-height: 12px;
-    width: 12px;
-    height: 12px;
-}
-
-.grid .sidebar {
-    min-width: 250px;
-    max-width: 375px; /* No love here */
-    width: 25%;
-}
-
-/*
-.grid .page {
-    position: relative;
-    width: 100%;
-}
-*/
 
 .xfill {
     width: 100% !important;
@@ -64,6 +41,10 @@
 
 .yfill {
     height: 100% !important;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 

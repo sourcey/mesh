@@ -34,34 +34,42 @@ html, body.portal {
     height: 100%;
 }
 
-.portal {}
-.portal #page {
+body.portal {}
+body.portal #page {
+    /*
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: relative;
+    */
     display: table;
     height: 100%;
     width: 100%;
 }
-.portal #page #header,
-.portal #page #content,
-.portal #page #footer {
+body.portal #page #header,
+body.portal #page #content,
+body.portal #page #footer {
     display: table-row;
 }
 
-.portal #page #content {
+body.portal #page #content {
     height: 100%;
 }
 
-.portal #page #content #layout {
+body.portal #page #content #layout {
     position: relative;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-.portal #page #content #layout #container {
+body.portal #page #content #layout #container {
     position: absolute;
-    height: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    height: auto;
 }

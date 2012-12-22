@@ -235,7 +235,7 @@ select[size="1"] {
     select,
     select[size="0"],
     select[size="1"] {
-        background-image: url('/assetpipe/mesh/assets/select_arrow.gif');
+        background-image: url(/assetpipe/mesh/assets/select-arrow.gif);
         background-repeat: no-repeat;
         background-position: right center;
         padding-right: 20px;
@@ -478,6 +478,11 @@ form.stacked .field {
     border-bottom: 1px solid #DEE2E8;
 }
 
+form.stacked .field:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
 form.stacked label {
     position: absolute;
     width: 33%;
@@ -528,9 +533,9 @@ form.stacked .loading {
 /* VALIDATION
 ----------------------------------------------------------------------------- */
 
-form.validate fieldset input,
+form.validate fieldset input/*,
 form.validate fieldset textarea,
-form.validate fieldset select {
+form.validate fieldset select */ {
     background-image: url(/assetpipe/mesh/assets/validation-icons.png);
     background-repeat: no-repeat;
     background-position: 98% 24px;
