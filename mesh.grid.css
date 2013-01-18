@@ -35,11 +35,18 @@
     height: 100%;
 }
 
-.xfill {
+.grid .ycenter,
+.grid .vcenter {
+    vertical-align: middle;
+}
+
+.xfill,
+.hfill {
     width: 100% !important;
 }
 
-.yfill {
+.yfill,
+.vfill {
     height: 100% !important;
 }
 
@@ -59,7 +66,7 @@
 .col2-set .col-1 { float:left; }
 .col2-set .col-2 { float:right; }
 
-/* Col2-alt */
+/* Col2-Alt */
 .col2-alt-set .col-1 { width:32%; }
 .col2-alt-set .col-2 { width:65%; }
 .col2-alt-set .col-1 { float:left; }

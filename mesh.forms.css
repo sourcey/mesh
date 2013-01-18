@@ -516,7 +516,7 @@ form.stacked .block .input {
 form.stacked .description,
 form.stacked .hint,
 form.stacked small {
-    margin: 5px 0 0;
+    padding: 5px 0 0;
 }
 
 form.stacked .loading {
