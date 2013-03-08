@@ -51,20 +51,20 @@ var Mesh = (function($, window, document, undefined) {
         util: {
             
             isHostMethod: function(o, m) {
-                var t = typeof o[m], reFeaturedMethod = new RegExp('^function|object$', 'i');
-                return !!((reFeaturedMethod.test(t) && o[m]) || t == 'unknown');
+              var t = typeof o[m], reFeaturedMethod = new RegExp('^function|object$', 'i');
+              return !!((reFeaturedMethod.test(t) && o[m]) || t === 'unknown');
             },            
 
             preventActions: function(evt) {
-                evt = evt || window.event;
-
-                if (evt.stopPropagation && evt.preventDefault) {
-                    evt.stopPropagation();
-                    evt.preventDefault();
-                } else {
-                    evt.cancelBubble = true;
-                    evt.returnValue = false;
-                }
+              evt = evt || window.event;
+              
+              if(evt.stopPropagation && evt.preventDefault) {
+                  evt.stopPropagation();
+                  evt.preventDefault();
+              } else {
+                  evt.cancelBubble = true;
+                  evt.returnValue = false;
+              }
             },
 
             getTarget: function(evt) {
