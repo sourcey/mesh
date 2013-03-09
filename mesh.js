@@ -7,7 +7,7 @@
     Distributed under The MIT License.
 */
 
-var Mesh = (function($, window, document, undefined) {
+var Mesh = (function(window, document) { //, undefined, $, 
 
     return {
 
@@ -38,7 +38,7 @@ var Mesh = (function($, window, document, undefined) {
                     Mesh[module][method] = methods[method];
         },
 
-        // Browser sniffing and support
+        // Browser support and compatability checking methods
         support: {},
 
         // Console logging for compatable browsers
@@ -48,28 +48,28 @@ var Mesh = (function($, window, document, undefined) {
         },
 
         // Tools & utilities namespace
+        // extend('util', func...
         util: {
-            
+                    
             isHostMethod: function(o, m) {
               var t = typeof o[m], reFeaturedMethod = new RegExp('^function|object$', 'i');
               return !!((reFeaturedMethod.test(t) && o[m]) || t === 'unknown');
             },            
 
-            preventActions: function(evt) {
-              evt = evt || window.event;
-              
-              if(evt.stopPropagation && evt.preventDefault) {
-                  evt.stopPropagation();
-                  evt.preventDefault();
+            preventActions: function(e) {
+              e = e || window.event;              
+              if (e.stopPropagation && e.preventDefault) {
+                  e.stopPropagation();
+                  e.preventDefault();
               } else {
-                  evt.cancelBubble = true;
-                  evt.returnValue = false;
+                  e.cancelBubble = true;
+                  e.returnValue = false;
               }
             },
 
-            getTarget: function(evt) {
-                evt = evt || window.event;
-                return evt.target || evt.srcElement;
+            getTarget: function(e) {
+                e = e || window.event;
+                return e.target || e.srcElement;
             }
         },
 
@@ -92,14 +92,14 @@ var Mesh = (function($, window, document, undefined) {
 
         // Unbind a browser event from the given node
         unbind: function(node, type, fn, capture) {
-            if (Mesh.util.isHostMethod(window,"removeEventListener")) {
+            if (Mesh.util.isHostMethod(window, "removeEventListener")) {
                 // FF & Other Browsers
                 node.removeEventListener(type, fn, capture);
             } 
-            else if (Mesh.util.isHostMethod(window,"detachEvent") && typeof window.event !== "undefined") {
+            else if (Mesh.util.isHostMethod(window, "detachEvent") && typeof window.event !== "undefined") {
                 // Internet Explorer
                 node.detachEvent("on" + type, fn);
             }
         }
     };
-})(jQuery, this, this.document);
+})(this, this.document); //jQuery, 
