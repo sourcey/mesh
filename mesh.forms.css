@@ -296,126 +296,6 @@ textarea::-moz-focus-inner {
 }
 
 
-
-/* FORM MARKUP
------------------------------------------------------------------------------ */
-
-input tiny {
-    width: 50px;
-}
-
-input small {
-    width: 100px;
-}
-
-input medium {
-    width: 150px;
-}
-
-input large {
-    width: 200px;
-}
-
-input xlarge {
-    width: 250px;
-}
-
-input xxlarge {
-    width: 300px;
-}
-
-.width-25 {
-    width: 25% !important;
-}
-
-.width-33 {
-    width: 33% !important;
-}
-
-.width-50 {
-    width: 25% !important;
-}
-
-.width-75 {
-    width: 75% !important;
-}
-
-.width-100,
-.width-full {
-    width: 75% !important;
-}
-
-.width-full-wrap {
-    display: block;
-    padding-right: 8px;
-}
-
-/*
-form {
-    margin: 0 0 15px;
-}
-*/
-
-form h2 {
-    margin: 0 0 20px;
-}
-
-form h3 {
-    margin: 0 0 15px;
-}
-
-form fieldset {
-    margin: 0 0 20px;
-    padding: 15px;
-    border: none;
-}
-
-form fieldset legend {
-    font-size: 18px;
-    line-height: 1;
-}
-
-form label {
-    font-size: 13px;
-    line-height: 1;
-    margin: 0 0 5px;
-    display: block;
-}
-
-form label.inline {
-    display: inline-block;
-    width: auto;
-}
-
-form .description,
-form .hint,
-form small {
-    display: block;
-    font: 11px/1.3em Arial;
-    color: #808080;
-    /*
-    color: #888;
-    */
-    margin: 0 0 5px;
-}
-
-form .inline input,
-form .inline select,
-form input.inline {
-    display: inline;
-    width: auto;
-}
-
-form .required {
-    color: #c00;
-}
-
-form .serparator {
-    border-top: 1px solid #ccc;
-    margin: 0 0 15px;
-}
-
-
 /* Form Errors
 ............................................................................. */
 
@@ -609,4 +489,129 @@ form.validate input.valid {
 form.validate input.error::-webkit-input-placeholder,
 form.validate inputerror :-moz-placeholder {
     color: #fff;
+}
+
+
+/* FORM MARKUP
+----------------------------------------------------------------------------- */
+
+select.tiny,
+input.tiny {
+    width: 50px !important;
+}
+
+select.small,
+input.small {
+    width: 100px !important;
+}
+
+select.medium,
+input.medium {
+    width: 150px !important;
+}
+
+select.large,
+input.large {
+    width: 200px !important;
+}
+
+select.xlarge,
+input.xlarge {
+    width: 250px !important;
+}
+
+select.xxlarge,
+input.xxlarge {
+    width: 300px !important;
+}
+
+.width-25 {
+    width: 25% !important;
+}
+
+.width-33 {
+    width: 33% !important;
+}
+
+.width-50 {
+    width: 25% !important;
+}
+
+.width-75 {
+    width: 75% !important;
+}
+
+.width-100,
+.width-full {
+    width: 75% !important;
+}
+
+.width-full-wrap {
+    display: block;
+    padding-right: 8px;
+}
+
+/*
+form {
+    margin: 0 0 15px;
+}
+*/
+
+form h2 {
+    margin: 0 0 20px;
+}
+
+form h3 {
+    margin: 0 0 15px;
+}
+
+form fieldset {
+    margin: 0 0 20px;
+    padding: 15px;
+    border: none;
+}
+
+form fieldset legend {
+    font-size: 18px;
+    line-height: 1;
+}
+
+form label {
+    font-size: 13px;
+    line-height: 1;
+    margin: 0 0 5px;
+    display: block;
+}
+
+form label.inline {
+    display: inline-block;
+    width: auto;
+}
+
+form .description,
+form .hint,
+form small {
+    display: block;
+    font: 11px/1.3em Arial;
+    color: #808080;
+    /*
+    color: #888;
+    */
+    margin: 0 0 5px;
+}
+
+form .inline input,
+form .inline select,
+form input.inline {
+    display: inline;
+    width: auto;
+}
+
+form .required {
+    color: #c00;
+}
+
+form .serparator {
+    border-top: 1px solid #ccc;
+    margin: 0 0 15px;
 }

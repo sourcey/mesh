@@ -54,7 +54,7 @@
     content: attr(data-hint);
     background: #24252f;
     color: white;
-    text-shadow: 0 -1px 0px black;
+    text-shadow: 1px 1px 0px #222;
     padding: 6px 10px;
     font-size: 12px;
     line-height: 12px;

@@ -326,7 +326,7 @@
 
 .small .button,
 .button.small {
-    padding: 0.35em 1em;
+    padding: 0.3em 1em;
     font-size: 11px;
 }
 
@@ -351,7 +351,8 @@
     display: inline-block;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0;    
+    white-space: nowrap;
     /* IE hacks */
     zoom: 1;
     *display: inline;
@@ -361,7 +362,7 @@
 .button + .button-group,
 .button-group + .button,
 .button-group + .button-group {
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 .button-group li {
@@ -401,6 +402,13 @@
     -moz-border-radius-bottomleft: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+/* Fix for single pill button in group */
+.button-group > .button.pill:only-of-type {
+    -webkit-border-radius: 50em;
+    -moz-border-radius: 50em;
+    border-radius: 50em;
 }
 
 

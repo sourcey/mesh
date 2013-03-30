@@ -11,17 +11,17 @@
 // Check support for native HTML5 form validation
 Mesh.support.formValidation = (function() {
     var field = document.createElement('input');
-    return (Mesh.util.isHostMethod(field,"validity") && Mesh.util.isHostMethod(field,"checkValidity"));
+    return (Mesh.Util.isHostMethod(field,"validity") && Mesh.Util.isHostMethod(field,"checkValidity"));
 })();
 
 // Check support for HTML5 form placeholders
 Mesh.support.placeholder = (function(){
-    return Mesh.util.testAttribute('input', 'placeholder');
+    return Mesh.Util.testAttribute('input', 'placeholder');
 })();
 
 // Check support for HTML5 form autofocus
 Mesh.support.autofocus = (function(){
-    return Mesh.util.testAttribute('input', 'autofocus');
+    return Mesh.Util.testAttribute('input', 'autofocus');
 })();
 
 
@@ -30,7 +30,7 @@ Mesh.loaders.validation = function() {
     var forms = [];
     var formsCollection = document.getElementsByTagName("form");
     for (var i=0;i<formsCollection.length;i++) {
-      if (Mesh.util.hasClass(formsCollection[i], 'validate'))
+      if (Mesh.Util.hasClass(formsCollection[i], 'validate'))
         forms.push(formsCollection[i]);
     }
     if (forms.length)
@@ -69,7 +69,7 @@ Mesh.forms.validation = (function(d){
         isSubmit, bypassSubmit, usrPatt, curEvt, args,
         // Methods
         setup, validation, validity, checkField, bypassChecks, checkValidity, setCustomValidity, support, pattern, placeholder, range, required, valueMissing
-        //, listen, Mesh.util.unbind, Mesh.util.preventActions, Mesh.util.getTarget, Mesh.util.addClass, Mesh.util.removeClass, Mesh.util.isHostMethod;
+        //, listen, Mesh.Util.unbind, Mesh.Util.preventActions, Mesh.Util.getTarget, Mesh.Util.addClass, Mesh.Util.removeClass, Mesh.Util.isHostMethod;
     
     setup = function(form, settings) {        
         var isCollection = !form.nodeType || false;
@@ -116,7 +116,7 @@ Mesh.forms.validation = (function(d){
             isSubmit = true;
             if (!bypassSubmit) {
                 if (!noValidate && !form.checkValidity()) {
-                    Mesh.util.preventActions(e);
+                    Mesh.Util.preventActions(e);
                 }
             }
         },false);
@@ -178,7 +178,7 @@ Mesh.forms.validation = (function(d){
     
     checkField = function(e) {
             
-        var el = Mesh.util.getTarget(e) || e, // checkValidity method passes element not event
+        var el = Mesh.Util.getTarget(e) || e, // checkValidity method passes element not event
             //events = /^(input|keyup|focusin|focus|change)$/i,
             events = /^(keyup|focusin|focus|change)$/i, // XXX: Allow update field on input
             ignoredTypes = /^(submit|image|button|reset)$/i,
@@ -193,18 +193,18 @@ Mesh.forms.validation = (function(d){
             }
         
             if (el.validity.valid && (el.value !== "" || specialTypes.test(el.type)) || (el.value !== el.getAttribute("placeholder") && el.validity.valid)) {
-                Mesh.util.removeClass(el,[args.invalidClass,args.requiredClass]);
-                Mesh.util.addClass(el,args.validClass);
+                Mesh.Util.removeClass(el,[args.invalidClass,args.requiredClass]);
+                Mesh.Util.addClass(el,args.validClass);
             } else if (!events.test(curEvt)) {        
                 if (el.validity.valueMissing) {
-                    Mesh.util.removeClass(el,[args.invalidClass,args.validClass]);
-                    Mesh.util.addClass(el,args.requiredClass);
+                    Mesh.Util.removeClass(el,[args.invalidClass,args.validClass]);
+                    Mesh.Util.addClass(el,args.requiredClass);
                 } else if (!el.validity.valid) {
-                    Mesh.util.removeClass(el,[args.validClass,args.requiredClass]);
-                    Mesh.util.addClass(el,args.invalidClass);
+                    Mesh.Util.removeClass(el,[args.validClass,args.requiredClass]);
+                    Mesh.Util.addClass(el,args.invalidClass);
                 }
             } else if (el.validity.valueMissing) {
-                Mesh.util.removeClass(el,[args.requiredClass,args.invalidClass,args.validClass]);
+                Mesh.Util.removeClass(el,[args.requiredClass,args.invalidClass,args.validClass]);
             }
             if (curEvt === "input" && checkForm) {
                 // If input is triggered remove the keyup event
@@ -251,7 +251,7 @@ Mesh.forms.validation = (function(d){
     
     bypassChecks = function(e) {
         // handle formnovalidate attribute
-        var el = Mesh.util.getTarget(e);
+        var el = Mesh.Util.getTarget(e);
 
         if (el.attributes["formnovalidate"] && el.type === "submit") {
             bypassSubmit = true;
@@ -296,10 +296,10 @@ Mesh.forms.validation = (function(d){
                   curEvt = 'submit';
                   placeholder(el);
                 }, true);
-                Mesh.util.addClass(el,args.placeholderClass);
+                Mesh.Util.addClass(el,args.placeholderClass);
             } else if (el.value === attrs.placeholder && focus.test(curEvt)) {
                 el.value = "";
-                Mesh.util.removeClass(el,args.placeholderClass);
+                Mesh.Util.removeClass(el,args.placeholderClass);
             }
         }
     };
@@ -362,7 +362,7 @@ Mesh.forms.validation = (function(d){
 
     // Methods
     setup, validation, validity, checkField, checkValidity, setCustomValidity, pattern, placeholder, range, required, valueMissing; 
-    //support, , Mesh.bind, Mesh.unbind, Mesh.util.Mesh.util.preventActions, Mesh.util.Mesh.util.getTarget, Mesh.util.Mesh.util.addClass, Mesh.util.Mesh.util.removeClass,  Mesh.util.hasClass, Mesh.util.isHostMethod;
+    //support, , Mesh.bind, Mesh.unbind, Mesh.Util.Mesh.Util.preventActions, Mesh.Util.Mesh.Util.getTarget, Mesh.Util.Mesh.Util.addClass, Mesh.Util.Mesh.Util.removeClass,  Mesh.Util.hasClass, Mesh.Util.isHostMethod;
 
     //
     // Public Methods
@@ -434,7 +434,7 @@ Mesh.forms.validation = (function(d){
         Mesh.bind(form,"submit",function(e) {
             isSubmit = true;
             if (!noValidate && !form.checkValidity()) {
-                Mesh.util.Mesh.util.preventActions(e);
+                Mesh.Util.Mesh.Util.preventActions(e);
             }
         }, false);
 
@@ -516,7 +516,7 @@ Mesh.forms.validation = (function(d){
     };
 
     checkField = function (e) {
-        var el = Mesh.util.Mesh.util.getTarget(e); // || e, // checkValidity method passes element not event
+        var el = Mesh.Util.Mesh.Util.getTarget(e); // || e, // checkValidity method passes element not event
         checkForm = true;
 
         console.log('Mesh.forms.validation: Check field: Test: ', el, e) //.name, el.type
@@ -531,23 +531,23 @@ Mesh.forms.validation = (function(d){
 
             if (el.validity.valid == true || el.value == el.getAttribute("placeholder")) {
               console.log('Mesh.forms.validation: Check Field: Result: 1')
-                Mesh.util.Mesh.util.removeClass(el,[args.invalidClass,args.requiredClass]);
-                Mesh.util.Mesh.util.addClass(el,args.validClass);
+                Mesh.Util.Mesh.Util.removeClass(el,[args.invalidClass,args.requiredClass]);
+                Mesh.Util.Mesh.Util.addClass(el,args.validClass);
             } 
             else if (checkEvents.test(curEvt)) {
               console.log('Mesh.forms.validation: Check Field: Result: 2')
                 if (el.validity.valueMissing) {
-                    Mesh.util.Mesh.util.removeClass(el,[args.invalidClass,args.validClass]);
-                    Mesh.util.Mesh.util.addClass(el,args.requiredClass);
+                    Mesh.Util.Mesh.Util.removeClass(el,[args.invalidClass,args.validClass]);
+                    Mesh.Util.Mesh.Util.addClass(el,args.requiredClass);
                 }
                 else if (!el.validity.valid) {
-                    Mesh.util.Mesh.util.removeClass(el,[args.validClass,args.requiredClass]);
-                    Mesh.util.Mesh.util.addClass(el,args.invalidClass);
+                    Mesh.Util.Mesh.Util.removeClass(el,[args.validClass,args.requiredClass]);
+                    Mesh.Util.Mesh.Util.addClass(el,args.invalidClass);
                 }
             }
             else if (el.validity.valueMissing) {
               console.log('Mesh.forms.validation: Check Field: Result: 3')
-                Mesh.util.Mesh.util.removeClass(el,[args.requiredClass,args.invalidClass,args.validClass]);
+                Mesh.Util.Mesh.Util.removeClass(el,[args.requiredClass,args.invalidClass,args.validClass]);
             }
             if (curEvt === "input" && checkForm) {
               console.log('Mesh.forms.validation: Check Field: Result: 4')
@@ -623,7 +623,7 @@ Mesh.forms.validation = (function(d){
                 ret = null;
         }
 
-        var i = (Mesh.util.hasClass(el, args.caseInsensitiveClass) ? "i" : "");
+        var i = (Mesh.Util.hasClass(el, args.caseInsensitiveClass) ? "i" : "");
 
         if ((ret == false || ret == null) && tests[1] != "") {
             usrPatt = new RegExp('^(?:' + tests[1] + ')$', i);
@@ -654,11 +654,11 @@ Mesh.forms.validation = (function(d){
                     curEvt = 'submit';
                     placeholder(el);
                 }, true);
-                Mesh.util.Mesh.util.addClass(el,args.placeholderClass);
+                Mesh.Util.Mesh.Util.addClass(el,args.placeholderClass);
                 // //console.log('Mesh.forms.validation: Show placeholder');
             } else if (el.value === attrs.placeholder && focus.test(curEvt)) {
                 el.value = "";
-                Mesh.util.Mesh.util.removeClass(el,args.placeholderClass);
+                Mesh.Util.Mesh.Util.removeClass(el,args.placeholderClass);
                 // //console.log('Mesh.forms.validation: Hide placeholder');
             }
         }

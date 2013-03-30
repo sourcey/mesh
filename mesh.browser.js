@@ -161,7 +161,7 @@ Mesh.Browser.Classify = {
     classes = browser + ' ' + browser + Mesh.Browser.version;
     if (extra)
         classes += ' ' + extra;
-    Mesh.util.addClass(document.body, classes);
+    Mesh.Util.addClass(document.body, classes);
     //alert("Mesh.Browser.Class: " + classes)    
 	}
 }
