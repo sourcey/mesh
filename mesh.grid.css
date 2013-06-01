@@ -21,7 +21,7 @@
     display: table-row;
     vertical-align: top;
     width: 100%;
-    height: 0%;
+    /* height: 0%; */
 }
 
 .grid .cell {
@@ -42,12 +42,12 @@
 
 .xfill,
 .hfill {
-    width: 100% !important;
+    width: 100%;
 }
 
 .yfill,
 .vfill {
-    height: 100% !important;
+    height: 100%;
 }
 
 .nowrap {
