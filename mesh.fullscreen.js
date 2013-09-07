@@ -15,15 +15,15 @@ Mesh.support.fullscreen = false; // guilty until proven otherwise!
 (function(window, document) {
         
     // document.fullscreenEnabled
-    if(!document.hasOwnProperty("fullscreenEnabled")) {
+    if (!document.hasOwnProperty("fullscreenEnabled")) {
         getter = (function() {            
             // These are the functions that match the spec, 
             // and should be preferred
-            if("webkitIsFullScreen" in document) {
+            if ("webkitIsFullScreen" in document) {
                 Mesh.support.fullscreen = true;
                 return function() { return document.webkitFullscreenEnabled; };
             }
-            if("mozFullScreenEnabled" in document) {
+            if ("mozFullScreenEnabled" in document) {
                 Mesh.support.fullscreen = true;
                 return function() { return document.mozFullScreenEnabled; };
             }
@@ -37,7 +37,8 @@ Mesh.support.fullscreen = false; // guilty until proven otherwise!
         });
     }
 
-    if(!document.hasOwnProperty("fullscreenElement")) {
+    // document.fullscreenElement
+    if (!document.hasOwnProperty("fullscreenElement")) {
         getter = (function() {
             // These are the functions that match the spec, and should be preferred
             var i=0, name=["webkitCurrentFullScreenElement", "webkitFullscreenElement", "mozFullScreenElement"];
@@ -79,15 +80,15 @@ Mesh.support.fullscreen = false; // guilty until proven otherwise!
 
     // element.requestFullScreen    
     var elementPrototype = (window.HTMLElement || window.Element)["prototype"];
-    if(!elementPrototype.requestFullScreen) {
+    if (!elementPrototype.requestFullScreen) {
         elementPrototype.requestFullScreen = (function() {
-            if(elementPrototype.webkitRequestFullScreen) {
+            if (elementPrototype.webkitRequestFullScreen) {
                 return function() {
                     this.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
                 };
             }
 
-            if(elementPrototype.mozRequestFullScreen) {
+            if (elementPrototype.mozRequestFullScreen) {
                 return function() {
                     this.mozRequestFullScreen();
                 };
@@ -98,7 +99,7 @@ Mesh.support.fullscreen = false; // guilty until proven otherwise!
     }
 
     // document.cancelFullScreen
-    if(!document.cancelFullScreen) {
+    if (!document.cancelFullScreen) {
         document.cancelFullScreen = (function() {
             return  document.webkitCancelFullScreen ||
                     document.mozCancelFullScreen ||

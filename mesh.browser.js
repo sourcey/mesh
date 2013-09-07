@@ -112,10 +112,15 @@ Mesh.Browser = {
 			identity: "Mac"
 		},
 		{
-			   string: navigator.userAgent,
-			   subString: "iPhone",
-			   identity: "iPhone/iPod"
-	    },
+       string: navigator.platform,
+       subString: "iPhone",
+       identity: "iPhone/iPod"
+	  },
+		{
+       string: navigator.platform,
+       subString: "iPad",
+       identity: "iPad"
+	  },
 		{
 			string: navigator.platform,
 			subString: "Linux",

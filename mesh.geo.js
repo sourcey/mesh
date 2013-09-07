@@ -104,10 +104,10 @@ Mesh.Geo = Mesh.Class.extend({
         if (typeof locations != 'object') {
             locations = []
             locations.push([ -27.470933, 153.023502 ])
-            locations.push([ -27.460933, 153.023502 ])
-            locations.push([ -27.450933, 153.023502 ])
-            locations.push([ -27.440933, 153.023502 ])
-            locations.push([ -27.430933, 153.023502 ])
+            locations.push([ -27.460933, 153.013502 ])
+            locations.push([ -27.450933, 153.033502 ])
+            locations.push([ -27.440933, 153.043502 ])
+            locations.push([ -27.430933, 153.053502 ])
         }
 
         var self = this;
@@ -147,7 +147,101 @@ Mesh.Geo = Mesh.Class.extend({
             navigator.geolocation.clearWatch(this.watchID);
     },
 
+    onPosition: function(position) {
+        if (!this.active) {
+            console.log('GeoLocation: Skipping Position: ', position, this.active);
+            return;
+        }
+
+        var self = this;
+        this.position = position;
+        this.coords = self.positionToJSON(position);
+        this.history.push(this.coords);
+        console.log('GeoLocation: Position: ', position, this.coords);
+        self.trigger('position', position);
+        self.trigger('coords', this.coords);
+    },
+
+    setError: function(code, message) {
+        this.error = {
+            code: code,
+            message: message
+        };
+        this.trigger('error', this.error);
+    },
+
+    positionToJSON: function(position) {
+        if (!position) return {}
+        return {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy,
+            altitude: position.coords.altitude,
+            altitudeAccuracy: position.coords.altitudeAccuracy,
+            timestamp: position.timestamp
+            //heading: loc.coords.heading,
+            //speed: loc.coords.speed
+            //address: p.address,
+        }
+    },
+
+    // Loads not-so-accurate fallback coordinates from google
+    askGoogle: function(callback) {
+        $.getScript('http://www.google.com/jsapi', function(data, textStatus) {
+            if (textStatus == 'success') {
+                callback({
+                    latitude: google.loader.ClientLocation.latitude,
+                    longitude: google.loader.ClientLocation.longitude
+                },
+                null);
+            }
+            else {
+                callback(null, {
+                    message: 'The server is unavailable' ,
+                    code: 2
+                });
+            }
+        });
+    },
+    
+    // Reverse lookup the address for the current geo position
+    getAddress: function(callback) {
+        if (!this.coords ||
+            !this.coords.latitude ||
+            !this.coords.longitude) 
+            throw 'Cannot get country without geolocation';
+              
+        return this.reverseLookup(this.coords.latitude, this.coords.longitude, callback);
+    },
+    
+    // Do a reverse lookup for the given coordinates
+    // Chain this method JQuery AJAX callbacks to handle response:
+    // reverseLookup()
+    //    .success(function(data) { alert("second success"); })
+    //    .error(function() { alert("error"); })
+    //    .complete(function() { alert("complete"); });
+    reverseLookup: function(lat, lng, callback) {
+        return $.getJSON("http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lng + "&zoom=18&addressdetails=1")
+            .success(function(data) { 
+                if (callback)
+                    callback(data, null);
+            })
+            .error(function() {
+                if (callback)
+                    callback(null, {
+                        message: 'The server is unavailable' ,
+                        code: 2
+                    });
+            })
+    }
+});
+
+
+
+
     /*
+    //console.log('GPSMap: Reverse Lookup:', lng, lat);
+        
     // Bind an event
     on: function(event, fn) {
         if (typeof this.delegates[event] == 'undefined')
@@ -181,101 +275,3 @@ Mesh.Geo = Mesh.Class.extend({
         }
     },
     */
-
-    onPosition: function(position) {
-        if (!this.active) {
-            console.log('GeoLocation: Skipping Position: ', position, this.active);
-            return;
-        }
-
-        var self = this;
-        //setTimeout(function () {
-        this.position = position;
-        this.coords = self.positionToJSON(position);
-        this.history.push(this.coords);
-        console.log('GeoLocation: Position: ', position, this.coords);
-        self.trigger('position', position);
-        self.trigger('coords', this.coords);
-        //}, 0);
-    },
-
-    setError: function(code, message) {
-        this.error = {
-            code: code,
-            message: message
-        };
-        this.trigger('error', this.error);
-    },
-
-    positionToJSON: function(position) {
-        if (!position) return {}
-        return {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy,
-            altitude: position.coords.altitude,
-            altitudeAccuracy: position.coords.altitudeAccuracy,
-            timestamp: position.timestamp
-        //heading: loc.coords.heading,
-        //speed: loc.coords.speed
-        //address: p.address,
-        }
-    },
-
-    // Loads not-so-accurate coordinates from google as a fallback.
-    askGoogle: function(callback) {
-        $.getScript('http://www.google.com/jsapi', function(data, textStatus) {
-            if (textStatus == 'success') {
-                callback({
-                    latitude: google.loader.ClientLocation.latitude,
-                    longitude: google.loader.ClientLocation.longitude
-                },
-                null);
-            }
-            else {
-                callback(null, {
-                    message: 'The server is unavailable' ,
-                    code: 2
-                });
-            }
-        });
-    },
-    
-    // Get the current address for the current coordinates
-    getAddress: function(callback) {
-        if (!this.coords ||
-            !this.coords.latitude ||
-            !this.coords.longitude) 
-            throw 'Cannot get country without geolocation';
-              
-        return this.reverseLookup(this.coords.latitude, this.coords.longitude, callback);
-    },
-    
-    // Do a reverse lookup for the given coordinates
-    // Chain this method JQuery AJAX callbacks to handle response:
-    // reverseLookup()
-    //    .success(function(data) { alert("second success"); })
-    //    .error(function() { alert("error"); })
-    //    .complete(function() { alert("complete"); });
-    reverseLookup: function(lat, lng, callback) {
-        //console.log('GPSMap: Reverse Lookup:', lng, lat);
-        return $.getJSON("http://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lng + "&zoom=18&addressdetails=1")
-            .success(function(data) { 
-                if (callback)
-                    callback(data, null);
-            })
-            .error(function() {
-                if (callback)
-                    callback(null, {
-                        message: 'The server is unavailable' ,
-                        code: 2
-                    });
-            })
-    }
-});
-
-
-// Initialize geolocation API
-//Mesh.loaders.geo = function() {
-//    Mesh.Geo.init();
-//};

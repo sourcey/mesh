@@ -43,12 +43,18 @@ Mesh.History = {
       }  
       this.api.init()
   },
+    
+  path: window.location.pathname,
   
   onChange: function(fn) {
       this.delegates.push(fn);
   },
   
   triggerChange: function(path, event) {
+      if (this.path == path) {
+          console.log('Mesh.History: Page Change: Skipping:', path)
+          return;
+      }
       for (var i = 0; i < this.delegates.length; i++) {
           console.log('Mesh.History: Page Change: ', path, event)
           if (this.delegates[i].constructor == Function) {

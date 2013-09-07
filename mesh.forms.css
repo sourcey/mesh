@@ -11,9 +11,7 @@
 /* FORM MARKUP
 ----------------------------------------------------------------------------- */
 
-form {
-  line-height: 1.33em;
-}
+form {}
 
 form h2 {
     margin: 0 0 20px;
@@ -318,8 +316,8 @@ form.stacked fieldset legend {
     /*
     padding-top: 10px;
     padding-left: 10px;
-    */
     text-transform: uppercase;
+    */
 }
 
 /* Clearfloat for form fields */
@@ -370,7 +368,7 @@ form.stacked .block select {
     width: 300px;
 }
 form.stacked .block textarea {
-    width: 100%;
+    width: 95%;
 }
 form.stacked .block input[type="checkbox"] {
     width: auto;
