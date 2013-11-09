@@ -90,7 +90,7 @@
     width: 12px;
     height: 12px;
     margin: 0 0.75em 0 -0.25em;
-    background: url(/assetpipe/mesh/gh-icons.png) 0 99px no-repeat;
+    background: url(/static/mesh/gh-icons.png) 0 99px no-repeat;
 }
 
 .button.arrowup.icon:before { background-position: 0 0; }
@@ -302,14 +302,6 @@
 }
 
 
-/* Disable
-............................................................................. */
-
-.button.disable {
-    opacity: 0.5;
-}
-
-
 /* Big
 ............................................................................. */
 
@@ -318,7 +310,6 @@
 }
 
 .button.big.icon:before { top: 0; }
-
 
 
 /* Small
@@ -338,6 +329,15 @@
 .button.tiny {
     padding: 0.2em 0.8em;
     font-size: 11px;
+}
+
+
+/* Disabled
+............................................................................. */
+.button.disabled {
+    cursor: default !important;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 

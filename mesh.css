@@ -8,8 +8,8 @@
 */
 
 
-@import url('/assetpipe/mesh/mesh.reset.css');
-@import url('/assetpipe/mesh/mesh.buttons.css');
-@import url('/assetpipe/mesh/mesh.grid.css');
-@import url('/assetpipe/mesh/mesh.portal.css');
-@import url('/assetpipe/mesh/mesh.forms.css');
+@import url('/static/mesh/mesh.reset.css');
+@import url('/static/mesh/mesh.buttons.css');
+@import url('/static/mesh/mesh.grid.css');
+@import url('/static/mesh/mesh.portal.css');
+@import url('/static/mesh/mesh.forms.css');
