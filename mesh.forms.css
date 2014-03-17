@@ -91,10 +91,9 @@ textarea:focus {
 }
 
 input[type="file"]:focus, input[type="file"]:active,
-input[type="radio"]:focus,
-input[type="radio"]:active,
-input[type="checkbox"]:focus,
-input[type="checkbox"]:active {
+input[type="radio"]:focus, input[type="radio"]:active,
+input[type="checkbox"]:focus,input[type="checkbox"]:active,
+input[type="range"]:focus,input[type="range"]:active {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     -o-box-shadow: none;
@@ -140,7 +139,7 @@ input[type="week"] {
     padding: 2px 3px;
     text-align: left;
     font-size: 13px;
-    font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+    /* font-family: Arial, "Liberation Sans", FreeSans, sans-serif; */
     height: 1.8em;
     vertical-align: top;
     *padding-top: 2px;
@@ -234,7 +233,7 @@ select[size="1"] {
         border: 1px solid;
         border-color: #747474 #5e5e5e #4f4f4f;
         color: white;
-        font: 13px/17px "Lucida Grande", Arial, "Liberation Sans", FreeSans, sans-serif;
+        /* font: 13px/17px "Lucida Grande", Arial, "Liberation Sans", FreeSans, sans-serif; */
         overflow: hidden;
         padding: 15px 15px 17px;
         text-shadow: black 0 0 1px;
@@ -261,7 +260,7 @@ optgroup {
     color: black;
     font-style: normal;
     font-weight: normal;
-    font-family: Arial, "Liberation Sans", FreeSans, sans-serif;
+    /* font-family: Arial, "Liberation Sans", FreeSans, sans-serif; */
 }
 
 input:invalid,
@@ -308,12 +307,13 @@ form.stacked fieldset {
 form.stacked fieldset h3,
 form.stacked fieldset legend {
     text-align: left;
-    color: #333;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
-    margin-bottom: 10px;
     padding-bottom: 0;
+    color: #000;
     /*
+    margin-bottom: 10px;
+    color: #333;
     padding-top: 10px;
     padding-left: 10px;
     text-transform: uppercase;
