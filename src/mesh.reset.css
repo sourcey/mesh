@@ -174,16 +174,6 @@ caption {
   text-align: left;
 }
 
-q {
-  quotes: none;
-}
-
-q:before,
-q:after {
-  content: '';
-  content: none;
-}
-
 sub,
 sup,
 small {

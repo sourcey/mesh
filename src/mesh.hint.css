@@ -122,7 +122,7 @@
  */
 .hint-right:before {
   margin-left: -12px;
-  margin-bottom: -6px; }
+  margin-bottom: -8px; }
 .hint-right:after {
   margin-bottom: -14px; }
 .hint-right:before, .hint-right:after {
@@ -138,7 +138,7 @@
  */
 .hint-left:before {
   margin-right: -12px;
-  margin-bottom: -6px; }
+  margin-bottom: -8px; }
 .hint-left:after {
   margin-bottom: -14px; }
 .hint-left:before, .hint-left:after {
