@@ -51,10 +51,10 @@ Mesh.History = {
   },
   
   triggerChange: function(path, event) {
-      if (this.path == path) {
-          console.log('Mesh.History: Page Change: Skipping:', path)
-          return;
-      }
+      //if (window.location.pathname == path) {
+      //    console.log('Mesh.History: Page Change: Skipping same path:', path)
+      //    return;
+      //}
       for (var i = 0; i < this.delegates.length; i++) {
           console.log('Mesh.History: Page Change: ', path, event)
           if (this.delegates[i].constructor == Function) {
@@ -77,11 +77,11 @@ Mesh.History.HTML5 = {
         window.onpopstate = function(event) {
             console.log('Mesh.History.HTML5: ', document.location, event)
             // Skip the initial unwanted popstate event on page load
-            if (location.href == initialURL) {
-                initialURL = null;
-                console.log('Mesh.History.HTML5: Skip initial popstate')
-                return;
-            }
+            //if (window.location.href == initialURL) {
+            //    initialURL = null;
+            //    console.log('Mesh.History.HTML5: Skip initial popstate')
+            //    return;
+            //}
             initialURL = null;            
             Mesh.History.triggerChange(Mesh.History.HTML5.path(), event)
         };

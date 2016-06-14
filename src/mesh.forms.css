@@ -336,7 +336,7 @@ form.stacked .block { display: inline-block; }
 }
 
 form.stacked .field {
-    width: 600px; /* default width */
+    /* width: 600px; default width */
     position: relative;
     text-align: left;
     margin: 0 auto 15px;
@@ -358,14 +358,15 @@ form.stacked .field label {
 }
 
 form.stacked .field .block {
-    width: 65%;
-    margin: 0 0 0 35%;
+    width: 64%;
+    margin: 0 0 0 36%;
 }
 
 
 form.stacked .field .block input,
 form.stacked .field .block select {
-    width: 300px;
+    /*width: 300px;*/
+    width: 100%;
 }
 form.stacked .field .block textarea {
     width: 95%;
@@ -375,7 +376,8 @@ form.stacked .field .block input[type="checkbox"] {
 }
 
 form.stacked .field .block .input {
-    width: 300px;
+    width: 100%;
+    /*width: 300px;*/
     position: relative;
 }
 
