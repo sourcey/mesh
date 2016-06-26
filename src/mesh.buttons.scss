@@ -1,0 +1,445 @@
+/*
+  mesh.buttons.css
+  CSS3 style buttons based on Nicolas Gallagher's Github buttons
+  http://github.com/necolas/css3-github-buttons
+
+  Copyright (c)2010 Sourcey
+  http://sourcey.com
+  Distributed under The MIT License.
+*/
+
+
+/* BUTTON
+----------------------------------------------------------------------------- */
+
+@mixin button-style($text-color,
+                    $text-shadow,
+                    $border-color,
+                    $border-bottom-color,
+                    $bg-color,
+                    $bg-color-from,
+                    $bg-color-to,
+                    $box-shadow) {
+  border-color: $border-color;
+  border-bottom-color: $border-bottom-color;
+  text-shadow: $text-shadow;
+  color: $text-color;
+  background-color: $bg-color;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($bg-color-from), to($bg-color-to));
+  background-image: -moz-linear-gradient($bg-color-from, $bg-color-to);
+  background-image: -o-linear-gradient($bg-color-from, $bg-color-to);
+  background-image: linear-gradient($bg-color-from, $bg-color-to);
+  box-shadow: $box-shadow; //0 0 10px rgba(0,0,0,0.3) inset;
+}
+
+@mixin button($font-size,
+              $padding,
+              $border-radius) {
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+  margin: 0;
+  padding: $padding;
+  border: 1px solid;
+  text-decoration: none;
+  font-size: $font-size;
+  font-weight: normal;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  -o-background-clip: padding-box;
+  background-clip: padding-box; /* commented out due to Opera 11.10 bug */
+  -webkit-border-radius: $border-radius;
+  -moz-border-radius: $border-radius;
+  border-radius: $border-radius;
+
+  // IE hacks
+  zoom: 1;
+  *display: inline;
+
+  // Override extra padding on button elements in Firefox
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+}
+
+
+/* Default
+............................................................................. */
+
+$button-font-size: 11px;
+$button-padding: 0.5em 1em;
+$button-border-radius: 0.2em;
+
+$button-text-color: #333;
+$button-text-shadow-color: -1px -1px 0 #fff;
+$button-border-color: #d4d4d4;
+$button-border-bottom-color: #d4d4d4;
+$button-bg-color: #f4f4f4;
+$button-bg-color-from: #f4f4f4;
+$button-bg-color-to: #ececec;
+$button-box-shadow: none;
+
+$button-hover-text-color: #fff;
+$button-hover-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
+$button-hover-border-color: #3072b3;
+$button-hover-border-bottom-color: #2a65a0;
+$button-hover-bg-color: #3C8DDE;
+$button-hover-bg-color-from: #599bdc;
+$button-hover-bg-color-to: #3072b3;
+$button-hover-box-shadow: none;
+
+$button-active-text-color: #fff;
+$button-active-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
+$button-active-border-color: #3072b3;
+$button-active-border-bottom-color: #2a65a0;
+$button-active-bg-color: #3C8DDE;
+$button-active-bg-color-from: #599bdc;
+$button-active-bg-color-to: #3072b3;
+$button-active-box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+
+.button {
+  @include button($button-font-size,
+                  $button-padding,
+                  $button-border-radius);
+
+  @include button-style($button-text-color,
+                        $button-text-shadow-color,
+                        $button-border-color,
+                        $button-border-bottom-color,
+                        $button-bg-color,
+                        $button-bg-color-from,
+                        $button-bg-color-to,
+                        $button-box-shadow);
+
+  &:hover {
+    @include button-style($button-hover-text-color,
+                          $button-hover-text-shadow-color,
+                          $button-hover-border-color,
+                          $button-hover-border-bottom-color,
+                          $button-hover-bg-color,
+                          $button-hover-bg-color-from,
+                          $button-hover-bg-color-to,
+                          $button-hover-box-shadow);
+  }
+
+  &:focus,
+  &:active,
+  &.active {
+    @include button-style($button-active-text-color,
+                          $button-active-text-shadow-color,
+                          $button-active-border-color,
+                          $button-active-border-bottom-color,
+                          $button-active-bg-color,
+                          $button-active-bg-color-from,
+                          $button-active-bg-color-to,
+                          $button-active-box-shadow);
+  }
+}
+
+// .button {
+//   position: relative;
+//   overflow: visible;
+//   display: inline-block;
+//   padding: 0.5em 1em;
+//   border: 1px solid $button-border-color;
+//   border-bottom-color: $button-border-bottom-color;
+//   margin: 0;
+//   text-decoration: none;
+//   text-shadow: 1px 1px 0 $button-text-shadow-color;
+//   font-size: $button-font-size;
+//   font-weight: normal;
+//   color: $button-text-color;
+//   white-space: nowrap;
+//   cursor: pointer;
+//   outline: none;
+//   background-color: $button-bg-color-to;
+//   background-image: -webkit-gradient(linear, 0 0, 0 100%, from($button-bg-color-from), to($button-bg-color-to));
+//   background-image: -moz-linear-gradient($button-bg-color-from, $button-bg-color-to);
+//   background-image: -o-linear-gradient($button-bg-color-from, $button-bg-color-to);
+//   background-image: linear-gradient($button-bg-color-from, $button-bg-color-to);
+//   -webkit-background-clip: padding;
+//   -moz-background-clip: padding;
+//   -o-background-clip: padding-box;
+//   background-clip: padding-box; /* commented out due to Opera 11.10 bug */
+//   -webkit-border-radius: 0.2em;
+//   -moz-border-radius: 0.2em;
+//   border-radius: 0.2em;
+//   // box-shadow: 0 0 8px rgba(0,0,0,0.2) inset;
+//   /* IE hacks */
+//   zoom: 1;
+//   *display: inline;
+// }
+//
+// .button:hover,
+// .button:focus,
+// .button:active,
+// .button.active {
+//   border-color: $button-active-border-color;
+//   border-bottom-color: $button-active-border-bottom-color;
+//   text-decoration: none;
+//   text-shadow: -1px -1px 0 $button-active-text-shadow-color;
+//   color: $button-active-text-color;
+//   background-color: $button-active-bg-color;
+//   background-image: -webkit-gradient(linear, 0 0, 0 100%, from($button-active-bg-color-from), to($button-active-bg-color-to));
+//   background-image: -moz-linear-gradient($button-active-bg-color-from, $button-active-bg-color-to);
+//   background-image: -o-linear-gradient($button-active-bg-color-from, $button-active-bg-color-to);
+//   background-image: linear-gradient($button-active-bg-color-from, $button-active-bg-color-to);
+// }
+//
+// .button:active,
+// .button.active,
+// .button.selected {
+//   box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+// //     border-color: #2a65a0;
+// //     border-bottom-color: #3884CF;
+// //     background-color: #3072b3;
+// //     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#599bdc));
+// //     background-image: -moz-linear-gradient(#3072b3, #599bdc);
+// //     background-image: -o-linear-gradient(#3072b3, #599bdc);
+// //     background-image: linear-gradient(#3072b3, #599bdc);
+// }
+
+
+/* BUTTON EXTENSIONS
+----------------------------------------------------------------------------- */
+
+
+/* Danger
+............................................................................. */
+
+$button-danger-text-color: #900;
+$button-danger-text-shadow-color: $button-text-shadow-color;
+$button-danger-border-color: $button-border-color;
+$button-danger-border-bottom-color: $button-border-bottom-color;
+$button-danger-bg-color: $button-bg-color;
+$button-danger-bg-color-from: $button-bg-color-from;
+$button-danger-bg-color-to: $button-bg-color-to;
+$button-danger-box-shadow: $button-box-shadow;
+
+$button-danger-hover-text-color: #fff;
+$button-danger-hover-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
+$button-danger-hover-border-color: #b53f3a;
+$button-danger-hover-border-bottom-color: #a0302a;
+$button-danger-hover-bg-color: #dc5f59;
+$button-danger-hover-bg-color-from: #dc5f59;
+$button-danger-hover-bg-color-to: #b33630;
+$button-danger-hover-box-shadow: none;
+
+$button-danger-active-text-color: #fff;
+$button-danger-active-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
+$button-danger-active-border-color: #b53f3a;
+$button-danger-active-border-bottom-color: #a0302a;
+$button-danger-active-bg-color: #dc5f59;
+$button-danger-active-bg-color-from: #dc5f59;
+$button-danger-active-bg-color-to: #b33630;
+$button-danger-active-box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+
+.button.danger {
+  @include button-style($button-danger-text-color,
+                        $button-danger-text-shadow-color,
+                        $button-danger-border-color,
+                        $button-danger-border-bottom-color,
+                        $button-danger-bg-color,
+                        $button-danger-bg-color-from,
+                        $button-danger-bg-color-to,
+                        $button-danger-box-shadow);
+
+  &:hover {
+    @include button-style($button-danger-hover-text-color,
+                          $button-danger-hover-text-shadow-color,
+                          $button-danger-hover-border-color,
+                          $button-danger-hover-border-bottom-color,
+                          $button-danger-hover-bg-color,
+                          $button-danger-hover-bg-color-from,
+                          $button-danger-hover-bg-color-to,
+                          $button-danger-hover-box-shadow);
+  }
+
+  &:focus,
+  &:active,
+  &.active {
+    @include button-style($button-danger-active-text-color,
+                          $button-danger-active-text-shadow-color,
+                          $button-danger-active-border-color,
+                          $button-danger-active-border-bottom-color,
+                          $button-danger-active-bg-color,
+                          $button-danger-active-bg-color-from,
+                          $button-danger-active-bg-color-to,
+                          $button-danger-active-box-shadow);
+  }
+}
+
+
+/* Primary
+............................................................................. */
+
+.button.primary {
+  font-weight: bold;
+}
+
+
+/* Pill
+............................................................................. */
+
+.button.pill {
+  -webkit-border-radius: 50em;
+  -moz-border-radius: 50em;
+  border-radius: 50em;
+}
+
+
+/* Big
+............................................................................. */
+
+$button-big-font-size: 14px;
+$button-big-padding: 0.5em 1em;
+
+.button.big {
+  font-size: $button-big-font-size;
+  padding: $button-big-padding;
+}
+
+
+/* Small
+............................................................................. */
+
+$button-small-font-size: 11px;
+$button-small-padding: 0.35em 1em;
+
+.small .button,
+.button.small {
+  padding: $button-small-padding;
+  font-size: $button-small-font-size;
+}
+
+
+/* Tiny
+............................................................................. */
+
+$button-tiny-font-size: 11px;
+$button-tiny-padding: 0.25em 0.9em;
+
+.tiny .button,
+.button.tiny {
+  padding: $button-tiny-padding;
+  font-size: $button-tiny-font-size;
+}
+
+
+/* Disabled
+............................................................................. */
+.button.disabled {
+  cursor: default !important;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
+/* BUTTON GROUPS
+----------------------------------------------------------------------------- */
+
+/* Standard
+............................................................................. */
+
+
+.button + .button,
+.button + .button-group,
+.button-group + .button,
+.button-group + .button-group {
+  margin-left: 10px;
+}
+
+.button-group {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  /* IE hacks */
+  zoom: 1;
+  *display: inline;
+
+  li {
+    float: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  .button {
+    float: left;
+    margin-left: -1px;
+  }
+
+  > .button:not(:first-child):not(:last-child),
+  li:not(:first-child):not(:last-child) .button {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+
+  > .button:first-child,
+  li:first-child .button {
+    margin-left: 0;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  > .button:last-child,
+  li:last-child > .button {
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-bottomleft: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  /* Fix for single pill button in group */
+  > .button.pill:only-of-type {
+    -webkit-border-radius: 50em;
+    -moz-border-radius: 50em;
+    border-radius: 50em;
+  }
+}
+
+
+/* Minor
+............................................................................. */
+
+// .button-group.minor-group .button {
+//     border: 1px solid $button-border-color;
+//     text-shadow: none;
+//     background-image: none;
+//     background-color: #fff;
+// }
+//
+// .button-group.minor-group .button:hover,
+// .button-group.minor-group .button:focus {
+//     background-color: #599bdc;
+// }
+//
+// .button-group.minor-group .button:active,
+// .button-group.minor-group .button.active {
+//     background-color: #3072b3;
+// }
+//
+// .button-group.minor-group .button.icon:before {
+//     opacity: 0.8;
+// }
+
+/* BUTTON CONTAINER
+----------------------------------------------------------------------------- */
+/* For mixing buttons and button groups, e.g., in a navigation bar */
+
+// .button-container .button,
+// .button-container .button-group {
+//     vertical-align: top;
+// }

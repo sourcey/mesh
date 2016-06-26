@@ -1,0 +1,507 @@
+/*
+  mesh.forms.css
+  Degradable HTML5 and CSS3 forms
+
+  Copyright (c)2010 Sourcey
+  http://sourcey.com
+  Distributed under The MIT License.
+*/
+
+
+@import 'mesh.util';
+
+
+$form-input-font-size: 14px;
+$form-input-padding: 0 5px;
+$form-input-height: 28px;
+$form-input-border-color: #848484 #c1c1c1 #e1e1e1;
+$form-input-color: black;
+$form-input-placeholder-color: #888888;
+$form-input-focus-shadow: 0 1px 2px 0 rgba(0,0,0,0.3) inset;
+$form-input-border-radius: 1px;
+
+
+/* FORM MARKUP
+----------------------------------------------------------------------------- */
+
+form {
+
+  h2 {
+    margin: 0 0 20px;
+  }
+
+  h3 {
+    margin: 0 0 15px;
+  }
+
+  fieldset {
+    margin: 0 0 20px;
+    padding: 20px;
+    border: none;
+  }
+
+  // fieldset legend {
+  //   font-size: 18px;
+  // }
+
+  label {
+    // font-size: 14px;
+    line-height: 1;
+    margin: 0 0 5px;
+    display: block;
+  }
+
+  label.inline {
+    display: inline-block;
+    width: auto;
+  }
+
+  .description,
+  .hint {
+    display: block;
+    font-size: 90%;
+    line-height: 1;
+    color: #808080;
+    margin: 0 0 5px;
+  }
+
+  .inline input,
+  .inline select,
+  input.inline {
+    display: inline;
+    width: auto;
+  }
+
+  .required {
+    color: #b00;
+  }
+
+  .serparator {
+    border-top: 1px dotted #ddd;
+    margin: 0 0 15px;
+  }
+
+  .larger {
+    font-size: 14px;
+  }
+
+  .large {
+    font-size: 16px;
+  }
+}
+
+textarea,
+select,
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"] {
+  outline: 0;
+  margin: 0;
+  padding: $form-input-padding;
+  height: $form-input-height;
+  line-height: $form-input-height;
+  text-align: left;
+  font-size: $form-input-font-size;
+  color: $form-input-color;
+  border: 1px solid;
+  border-color: $form-input-border-color;
+  background-color: white;
+
+  @include prefix(appearance, none);
+  @include prefix(box-sizing, border-box);
+  @include prefix(background-clip, padding-box);
+  @include prefix(border-radius, $form-input-border-radius);
+  @include prefix(transition, background-color .5s ease);
+
+  &:focus {
+    @include prefix(box-shadow, $form-input-focus-shadow);
+  }
+
+  &:invalid {
+    // -webkit-box-shadow: none;
+    // -moz-box-shadow: none;
+    // -o-box-shadow: none;
+    // box-shadow: none;
+  }
+
+  // input.error,
+  // select.error,
+  // textarea.error {
+  //   background-color: #fee;
+  // }
+}
+
+button[disabled],
+input[disabled],
+select[disabled],
+textarea[disabled] {
+  // -webkit-box-shadow: none;
+  // -moz-box-shadow: none;
+  // -o-box-shadow: none;
+  // box-shadow: none;
+  // -moz-user-select: -moz-none;
+  // -webkit-user-select: none;
+  // -khtml-user-select: none;
+  // user-select: none;
+  // color: $form-input-placeholder-color;
+
+  @include prefix(user-select, none);
+  opacity: 0.5;
+  cursor: default;
+}
+
+textarea,
+select[size],
+select[multiple] {
+  height: auto;
+}
+
+select[size],
+select[multiple],
+select[multiple][size] {
+  background-image: none;
+  padding-right: 3px;
+}
+
+select,
+select[size="0"],
+select[size="1"] { // add dropdown arrow
+  background-image: url('data:image/gif;base64,R0lGODlhDQAEAIAAAAAAAP8A/yH5BAEHAAEALAAAAAANAAQAAAILhA+hG5jMDpxvhgIAOw==');
+  background-repeat: no-repeat;
+  background-position: 98% center;
+  padding-right: 25px;
+}
+
+textarea {
+  min-height: 40px;
+  line-height: inherit;
+  overflow: auto;
+  resize: vertical;
+  width: 100%;
+}
+
+optgroup {
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+}
+
+
+//
+/// Reset default form styles for cross-browser configurability
+
+input[type="search"]::-webkit-search-decoration {
+  display: none;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner,
+select::-moz-focus-inner,
+textarea::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+
+//
+/// Webkit specific styles
+
+// @media (-webkit-min-device-pixel-ratio: 0) {
+//
+//   ::-webkit-validation-bubble-message {
+//       -webkit-box-shadow: none;
+//       box-shadow: none;
+//       background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, black));
+//       border: 1px solid;
+//       border-color: #747474 #5e5e5e #4f4f4f;
+//       color: white;
+//       /* font: 13px/17px "Lucida Grande", Arial, "Liberation Sans", FreeSans, sans-serif; */
+//       overflow: hidden;
+//       padding: 15px 15px 17px;
+//       text-shadow: black 0 0 1px;
+//       height: 16px;
+//   }
+//
+//   ::-webkit-validation-bubble-arrow,
+//   ::-webkit-validation-bubble-top-outer-arrow,
+//   ::-webkit-validation-bubble-top-inner-arrow {
+//       -webkit-box-shadow: none;
+//       box-shadow: none;
+//       background: #666666;
+//       border: 0;
+//   }
+// }
+
+
+/* PLACEHOLDERS
+----------------------------------------------------------------------------- */
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: $form-input-placeholder-color;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: $form-input-placeholder-color;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: $form-input-placeholder-color;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: $form-input-placeholder-color;
+}
+input.placeholder,
+textarea.placeholder {
+  color: $form-input-placeholder-color;
+}
+
+
+/* STACKED FORMS
+----------------------------------------------------------------------------- */
+
+$form-stacked-input-height: 26px;
+$form-stacked-row-padding: 18px 0;
+
+form.stacked fieldset {
+  text-align: center;
+}
+
+// form.stacked fieldset h3,
+// form.stacked fieldset legend {
+//   // text-align: left;
+//   // font-size: 13px;
+//   // font-weight: bold;
+//   // padding-bottom: 0;
+//   // color: #000;
+//   /*
+//   margin-bottom: 10px;
+//   color: #333;
+//   padding-top: 10px;
+//   padding-left: 10px;
+//   text-transform: uppercase;
+//   */
+// }
+
+// Clearfloat for form fields
+form.stacked .block:after {
+  content: ".";
+  display: block;
+  line-height: 0px;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+form.stacked .block { display: inline-block; }
+* html form.stacked .block,
+*:first-child+html form.stacked .block {
+  zoom: 1;
+  display: block;
+}
+
+form.stacked .field {
+  // width: 600px; // default width
+  position: relative;
+  text-align: left;
+  margin: 0 auto;
+  padding: $form-stacked-row-padding;
+  border-bottom: 1px solid #eee;
+}
+
+form.stacked .field:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+form.stacked .field label {
+  position: absolute;
+  width: 33%;
+  text-align: right;
+  line-height: $form-stacked-input-height;
+  padding: 0;
+  margin: 0;
+}
+
+form.stacked .field .block {
+  width: 64%;
+  margin: 0 0 0 36%;
+}
+
+form.stacked .field .block input,
+form.stacked .field .block select {
+  /*width: 300px;*/
+  width: 100%;
+}
+form.stacked .field .block textarea {
+  width: 95%;
+}
+form.stacked .field .block input[type="checkbox"] {
+  width: auto;
+}
+
+form.stacked .field .block .input {
+  width: 100%;
+  /*width: 300px;*/
+  position: relative;
+}
+
+form.stacked .description,
+form.stacked .hint,
+form.stacked small {
+  margin: 5px 0 0;
+}
+
+form.stacked .loading {
+  float: right;
+  margin: 3px 65px 0 0;
+  width: 16px;
+  height: 16px;
+  background-image: url(/static/mesh/assets/indicator.gif);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+
+/* CLEAN FORMS
+----------------------------------------------------------------------------- */
+
+form.clean {
+}
+
+form.clean fieldset {
+  padding: 0;
+}
+
+form.clean fieldset legend {
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+
+form.clean fieldset .field {
+  border-top: 1px dotted #ddd;
+  margin: 0;
+  padding: 16px 15px 18px;
+}
+
+form.clean fieldset .field label {
+  line-height: 1em;
+  margin: 0 0 7px;
+}
+
+
+/* VALIDATION
+----------------------------------------------------------------------------- */
+
+form.validate {
+
+  input {
+    // background-image: url(/static/mesh/assets/validation-icons.png);
+    // background-repeat: no-repeat;
+    // background-position: 98% 24px;
+
+    &.error {
+      background-color: #FFDFDF;
+      // background-position: 98% 4px;
+    }
+    &.required {
+      // background-color: #fff;
+      // background-position: 98% -28px;
+    }
+    &.valid {
+      // background-color: #fff;
+      // background-position: 98% -61px;
+    }
+  }
+
+  .validation {
+    font-size: 12px;
+    display: none;
+    font-style: italic;
+    margin: 5px 0 0;
+    // background: #c00;
+    // color: #fff;
+    // font-size: 12px;
+    // padding: 3px;
+    // position: absolute;
+    // right: -165px;
+    // text-align: center;
+    // top: 0;
+    // width: 150px;
+    // outline: 0;
+    // -moz-box-shadow: 0px 0px 4px #ffffff;
+    // -webkit-box-shadow: 0px 0px 4px #ffffff;
+    // box-shadow: 0px 0px 4px #ffffff;
+    // -webkit-border-radius: 5px;
+    // -moz-border-radius: 5px;
+    // border-radius: 5px;
+
+    .valid {
+      color: green;
+    }
+
+    .invalid {
+      color: red;
+    }
+  }
+
+  // input:focus + .validation { display: block; }
+  input + .validation { display: none; }
+  input + .validation .valid,
+  input + .validation .invalid { display: none; }
+
+  // Hide valid message when invalid
+  input:focus:invalid + .validation,
+  // input:focus:required:invalid + .validation .invalid,
+  input.required + .validation,
+  input.error + .validation {
+    display: block;
+    .invalid {
+      display: block;
+    }
+  }
+  // input:focus + .validation .valid { display: none; }
+
+  // input:focus:required:valid + .validation,
+  // input.valid:focus + .validation { color: green; }
+
+  // Hide invalid message when valid
+  input:valid + .validation,
+  // input:required:valid + .validation .valid,
+  input.valid + .validation {
+    display: block;
+    .valid {
+      display: block;
+    }
+  }
+
+  // Deprecated stateful styles below:
+
+  // input:focus + .validation { display: block; }
+  //
+  // input:focus:required:invalid + .validation .valid,
+  // input.error:focus + .validation .valid,
+  // input.required:focus + .validation .valid,
+  // input:focus + .validation .valid { display: none; }
+  //
+  // input:focus:required:valid + .validation,
+  // input.valid:focus + .validation { color: green; }
+  //
+  // // input:focus:required + .validation .invalid,
+  // input:focus:required:valid + .validation .invalid,
+  // input.valid:focus + .validation .invalid { display: none; }
+  //
+  // input:focus:required:valid + .validation .valid,
+  // input.valid:focus + .validation .valid { display: block; }
+
+  // fieldset input:required:valid {
+  //   background-color: #fff;
+  //   background-position: 98% -61px;
+  // }
+
+}
