@@ -32,9 +32,9 @@
   box-shadow: $box-shadow; //0 0 10px rgba(0,0,0,0.3) inset;
 }
 
-@mixin button($font-size,
-              $padding,
-              $border-radius) {
+@mixin button-layout($font-size,
+                     $padding,
+                     $border-radius) {
   position: relative;
   overflow: visible;
   display: inline-block;
@@ -67,6 +67,60 @@
 }
 
 
+@mixin button-variant($text-color,
+                      $text-shadow,
+                      $border-color,
+                      $border-bottom-color,
+                      $bg-color,
+                      $bg-color-from,
+                      $bg-color-to,
+                      $box-shadow: 0 1px 0 0 lighten($bg-color, 5%) inset,
+                      $hover-text-color: $text-color,
+                      $hover-text-shadow: $text-shadow,
+                      $hover-border-color: $border-color,
+                      $hover-border-bottom-color: $border-bottom-color,
+                      $hover-bg-color: darken($bg-color, 3%),
+                      $hover-bg-color-from: darken($bg-color-from, 3%),
+                      $hover-bg-color-to: lighten($bg-color-to, 3%),
+                      $hover-box-shadow: $box-shadow,
+                      $active-box-shadow: 0 0 10px rgba(0,0,0,0.3) inset) {
+
+  @include button-style($text-color,
+                        $text-shadow,
+                        $border-color,
+                        $border-bottom-color,
+                        $bg-color,
+                        $bg-color-from,
+                        $bg-color-to,
+                        $box-shadow);
+
+  &:hover {
+    @include button-style($hover-text-color,
+                          $hover-text-shadow,
+                          $hover-border-color,
+                          $hover-border-bottom-color,
+                          $hover-bg-color,
+                          $hover-bg-color-from,
+                          $hover-bg-color-to,
+                          $hover-box-shadow);
+  }
+
+  &:focus,
+  &:active,
+  &.active {
+    // @include button-style($text-color,
+    //                       $text-shadow,
+    //                       $border-color,
+    //                       $border-bottom-color,
+    //                       darken($bg-color, 3%),
+    //                       darken($bg-color-from, 3%),
+    //                       lighten($bg-color-to, 3%),
+    //                       0 0 10px rgba(0,0,0,0.2) inset);
+    box-shadow: $active-box-shadow;
+  }
+}
+
+
 /* Default
 ............................................................................. */
 
@@ -74,163 +128,123 @@ $button-font-size: 11px;
 $button-padding: 0.5em 1em;
 $button-border-radius: 0.2em;
 
-// $button-text-color: #333;
-// $button-text-shadow-color: -1px -1px 0 #fff;
-// $button-border-color: #d4d4d4;
-// $button-border-bottom-color: #d4d4d4;
-// $button-bg-color: #f4f4f4;
-// $button-bg-color-from: #f4f4f4;
-// $button-bg-color-to: #ececec;
-// $button-box-shadow: none;
-
-// $button-text-color: #eee;
-// $button-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
-// $button-border-color: #2a65a0;
-// $button-border-bottom-color: #3072b3;
-// $button-bg-color: #3C8DDE;
-// $button-bg-color-from: #3072b3;
-// $button-bg-color-to: #599bdc;
-// $button-box-shadow: none;
-
-$button-text-color: #fff;
-$button-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.2);
-$button-border-color: #3072b3;
-$button-border-bottom-color: #2a65a0;
-$button-bg-color: #3C8DDE;
-$button-bg-color-from: #599bdc;
-$button-bg-color-to: #3072b3;
-$button-box-shadow: none;
-
-$button-hover-text-color: #fff;
-$button-hover-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
-$button-hover-border-color: #3072b3;
-$button-hover-border-bottom-color: #2a65a0;
-$button-hover-bg-color: #3C8DDE;
-$button-hover-bg-color-from: #599bdc;
-$button-hover-bg-color-to: #3072b3;
-$button-hover-box-shadow: none;
-
-$button-active-text-color: #fff;
-$button-active-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
-$button-active-border-color: #3072b3;
-$button-active-border-bottom-color: #2a65a0;
-$button-active-bg-color: #3C8DDE;
-$button-active-bg-color-from: #599bdc;
-$button-active-bg-color-to: #3072b3;
-$button-active-box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+$button-text-color: #333;
+$button-text-shadow: 0 -1px 0 #fff;
+$button-border-color: #d4d4d4;
+$button-border-bottom-color: #d4d4d4;
+$button-bg-color: #f4f4f4;
+$button-bg-color-from: #f4f4f4;
+$button-bg-color-to: #ececec;
+$button-box-shadow: 0 1px 0 0 lighten($button-bg-color, 5%) inset;
 
 .button {
-  @include button($button-font-size,
-                  $button-padding,
-                  $button-border-radius);
+  @include button-layout($button-font-size,
+                         $button-padding,
+                         $button-border-radius);
 
-  @include button-style($button-text-color,
-                        $button-text-shadow-color,
-                        $button-border-color,
-                        $button-border-bottom-color,
-                        $button-bg-color,
-                        $button-bg-color-from,
-                        $button-bg-color-to,
-                        $button-box-shadow);
-
-  &:hover {
-    @include button-style($button-hover-text-color,
-                          $button-hover-text-shadow-color,
-                          $button-hover-border-color,
-                          $button-hover-border-bottom-color,
-                          $button-hover-bg-color,
-                          $button-hover-bg-color-from,
-                          $button-hover-bg-color-to,
-                          $button-hover-box-shadow);
-  }
-
-  &:focus,
-  &:active,
-  &.active {
-    @include button-style($button-active-text-color,
-                          $button-active-text-shadow-color,
-                          $button-active-border-color,
-                          $button-active-border-bottom-color,
-                          $button-active-bg-color,
-                          $button-active-bg-color-from,
-                          $button-active-bg-color-to,
-                          $button-active-box-shadow);
-  }
+  @include button-variant($button-text-color,
+                          $button-text-shadow,
+                          $button-border-color,
+                          $button-border-bottom-color,
+                          $button-bg-color,
+                          $button-bg-color-from,
+                          $button-bg-color-to,
+                          $button-box-shadow);
+  // @include button-layout($button-font-size,
+  //                        $button-padding,
+  //                        $button-border-radius);
+  //
+  // @include button-style($button-text-color,
+  //                       $button-text-shadow,
+  //                       $button-border-color,
+  //                       $button-border-bottom-color,
+  //                       $button-bg-color,
+  //                       $button-bg-color-from,
+  //                       $button-bg-color-to,
+  //                       $button-box-shadow);
+  //
+  // &:hover {
+  //   @include button-style($button-hover-text-color,
+  //                         $button-hover-text-shadow,
+  //                         $button-hover-border-color,
+  //                         $button-hover-border-bottom-color,
+  //                         $button-hover-bg-color,
+  //                         $button-hover-bg-color-from,
+  //                         $button-hover-bg-color-to,
+  //                         $button-hover-box-shadow);
+  // }
+  //
+  // &:focus,
+  // &:active,
+  // &.active {
+  //   @include button-style($button-active-text-color,
+  //                         $button-active-text-shadow,
+  //                         $button-active-border-color,
+  //                         $button-active-border-bottom-color,
+  //                         $button-active-bg-color,
+  //                         $button-active-bg-color-from,
+  //                         $button-active-bg-color-to,
+  //                         $button-active-box-shadow);
+  // }
 }
-
-// .button {
-//   position: relative;
-//   overflow: visible;
-//   display: inline-block;
-//   padding: 0.5em 1em;
-//   border: 1px solid $button-border-color;
-//   border-bottom-color: $button-border-bottom-color;
-//   margin: 0;
-//   text-decoration: none;
-//   text-shadow: 1px 1px 0 $button-text-shadow-color;
-//   font-size: $button-font-size;
-//   font-weight: normal;
-//   color: $button-text-color;
-//   white-space: nowrap;
-//   cursor: pointer;
-//   outline: none;
-//   background-color: $button-bg-color-to;
-//   background-image: -webkit-gradient(linear, 0 0, 0 100%, from($button-bg-color-from), to($button-bg-color-to));
-//   background-image: -moz-linear-gradient($button-bg-color-from, $button-bg-color-to);
-//   background-image: -o-linear-gradient($button-bg-color-from, $button-bg-color-to);
-//   background-image: linear-gradient($button-bg-color-from, $button-bg-color-to);
-//   -webkit-background-clip: padding;
-//   -moz-background-clip: padding;
-//   -o-background-clip: padding-box;
-//   background-clip: padding-box; /* commented out due to Opera 11.10 bug */
-//   -webkit-border-radius: 0.2em;
-//   -moz-border-radius: 0.2em;
-//   border-radius: 0.2em;
-//   // box-shadow: 0 0 8px rgba(0,0,0,0.2) inset;
-//   /* IE hacks */
-//   zoom: 1;
-//   *display: inline;
-// }
-//
-// .button:hover,
-// .button:focus,
-// .button:active,
-// .button.active {
-//   border-color: $button-active-border-color;
-//   border-bottom-color: $button-active-border-bottom-color;
-//   text-decoration: none;
-//   text-shadow: -1px -1px 0 $button-active-text-shadow-color;
-//   color: $button-active-text-color;
-//   background-color: $button-active-bg-color;
-//   background-image: -webkit-gradient(linear, 0 0, 0 100%, from($button-active-bg-color-from), to($button-active-bg-color-to));
-//   background-image: -moz-linear-gradient($button-active-bg-color-from, $button-active-bg-color-to);
-//   background-image: -o-linear-gradient($button-active-bg-color-from, $button-active-bg-color-to);
-//   background-image: linear-gradient($button-active-bg-color-from, $button-active-bg-color-to);
-// }
-//
-// .button:active,
-// .button.active,
-// .button.selected {
-//   box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
-// //     border-color: #2a65a0;
-// //     border-bottom-color: #3884CF;
-// //     background-color: #3072b3;
-// //     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#599bdc));
-// //     background-image: -moz-linear-gradient(#3072b3, #599bdc);
-// //     background-image: -o-linear-gradient(#3072b3, #599bdc);
-// //     background-image: linear-gradient(#3072b3, #599bdc);
-// }
 
 
 /* BUTTON EXTENSIONS
 ----------------------------------------------------------------------------- */
+
+/* Primary
+............................................................................. */
+
+$button-primary-text-color: #fff;
+$button-primary-text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+$button-primary-border-color: #3072b3;
+$button-primary-border-bottom-color: #2a65a0;
+$button-primary-bg-color: #3C8DDE;
+$button-primary-bg-color-from: #599bdc;
+$button-primary-bg-color-to: #457BB1; //#3072b3;
+$button-primary-box-shadow: inset 0 1px 0 0 #75ADE4;
+
+.button.primary {
+  @include button-variant($button-primary-text-color,
+                          $button-primary-text-shadow,
+                          $button-primary-border-color,
+                          $button-primary-border-bottom-color,
+                          $button-primary-bg-color,
+                          $button-primary-bg-color-from,
+                          $button-primary-bg-color-to,
+                          $button-primary-box-shadow);
+}
+
+
+/* Primary
+............................................................................. */
+
+$button-success-text-color: #fff;
+$button-success-text-shadow: 0 -1px 0 rgba(0,0,0,0.5); //0 -1px 0 #4c9021
+$button-success-border-color: #63a62f;
+$button-success-border-bottom-color: #5b992b;
+$button-success-bg-color: #7fbf4d;
+$button-success-bg-color-from: #7fbf4d;
+$button-success-bg-color-to: #63a62f; //#3072b3;
+$button-success-box-shadow: inset 0 1px 0 0 #96ca6d;
+
+.button.success {
+  @include button-variant($button-success-text-color,
+                          $button-success-text-shadow,
+                          $button-success-border-color,
+                          $button-success-border-bottom-color,
+                          $button-success-bg-color,
+                          $button-success-bg-color-from,
+                          $button-success-bg-color-to,
+                          $button-success-box-shadow);
+}
 
 
 /* Danger
 ............................................................................. */
 
 $button-danger-text-color: #900;
-$button-danger-text-shadow-color: $button-text-shadow-color;
+$button-danger-text-shadow: $button-text-shadow;
 $button-danger-border-color: $button-border-color;
 $button-danger-border-bottom-color: $button-border-bottom-color;
 $button-danger-bg-color: $button-bg-color;
@@ -239,63 +253,38 @@ $button-danger-bg-color-to: $button-bg-color-to;
 $button-danger-box-shadow: $button-box-shadow;
 
 $button-danger-hover-text-color: #fff;
-$button-danger-hover-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
+$button-danger-hover-text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
 $button-danger-hover-border-color: #b53f3a;
 $button-danger-hover-border-bottom-color: #a0302a;
 $button-danger-hover-bg-color: #dc5f59;
 $button-danger-hover-bg-color-from: #dc5f59;
 $button-danger-hover-bg-color-to: #b33630;
-$button-danger-hover-box-shadow: none;
-
-$button-danger-active-text-color: #fff;
-$button-danger-active-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
-$button-danger-active-border-color: #b53f3a;
-$button-danger-active-border-bottom-color: #a0302a;
-$button-danger-active-bg-color: #dc5f59;
-$button-danger-active-bg-color-from: #dc5f59;
-$button-danger-active-bg-color-to: #b33630;
-$button-danger-active-box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+$button-danger-hover-box-shadow: 0 1px 0 0 lighten($button-danger-hover-bg-color, 5%) inset;
 
 .button.danger {
-  @include button-style($button-danger-text-color,
-                        $button-danger-text-shadow-color,
-                        $button-danger-border-color,
-                        $button-danger-border-bottom-color,
-                        $button-danger-bg-color,
-                        $button-danger-bg-color-from,
-                        $button-danger-bg-color-to,
-                        $button-danger-box-shadow);
-
-  &:hover {
-    @include button-style($button-danger-hover-text-color,
-                          $button-danger-hover-text-shadow-color,
+  @include button-variant($button-danger-text-color,
+                          $button-danger-text-shadow,
+                          $button-danger-border-color,
+                          $button-danger-border-bottom-color,
+                          $button-danger-bg-color,
+                          $button-danger-bg-color-from,
+                          $button-danger-bg-color-to,
+                          $button-danger-box-shadow,
+                          $button-danger-hover-text-color,
+                          $button-danger-hover-text-shadow,
                           $button-danger-hover-border-color,
                           $button-danger-hover-border-bottom-color,
                           $button-danger-hover-bg-color,
                           $button-danger-hover-bg-color-from,
                           $button-danger-hover-bg-color-to,
                           $button-danger-hover-box-shadow);
-  }
-
-  &:focus,
-  &:active,
-  &.active {
-    @include button-style($button-danger-active-text-color,
-                          $button-danger-active-text-shadow-color,
-                          $button-danger-active-border-color,
-                          $button-danger-active-border-bottom-color,
-                          $button-danger-active-bg-color,
-                          $button-danger-active-bg-color-from,
-                          $button-danger-active-bg-color-to,
-                          $button-danger-active-box-shadow);
-  }
 }
 
 
-/* Primary
+/* Bold
 ............................................................................. */
 
-.button.primary {
+.button.bold {
   font-weight: bold;
 }
 
