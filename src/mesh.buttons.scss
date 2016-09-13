@@ -74,13 +74,31 @@ $button-font-size: 11px;
 $button-padding: 0.5em 1em;
 $button-border-radius: 0.2em;
 
-$button-text-color: #333;
-$button-text-shadow-color: -1px -1px 0 #fff;
-$button-border-color: #d4d4d4;
-$button-border-bottom-color: #d4d4d4;
-$button-bg-color: #f4f4f4;
-$button-bg-color-from: #f4f4f4;
-$button-bg-color-to: #ececec;
+// $button-text-color: #333;
+// $button-text-shadow-color: -1px -1px 0 #fff;
+// $button-border-color: #d4d4d4;
+// $button-border-bottom-color: #d4d4d4;
+// $button-bg-color: #f4f4f4;
+// $button-bg-color-from: #f4f4f4;
+// $button-bg-color-to: #ececec;
+// $button-box-shadow: none;
+
+// $button-text-color: #eee;
+// $button-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.3);
+// $button-border-color: #2a65a0;
+// $button-border-bottom-color: #3072b3;
+// $button-bg-color: #3C8DDE;
+// $button-bg-color-from: #3072b3;
+// $button-bg-color-to: #599bdc;
+// $button-box-shadow: none;
+
+$button-text-color: #fff;
+$button-text-shadow-color: -1px -1px 0 rgba(0,0,0,0.2);
+$button-border-color: #3072b3;
+$button-border-bottom-color: #2a65a0;
+$button-bg-color: #3C8DDE;
+$button-bg-color-from: #599bdc;
+$button-bg-color-to: #3072b3;
 $button-box-shadow: none;
 
 $button-hover-text-color: #fff;
